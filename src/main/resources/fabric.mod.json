@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "fishingparadise",
+	"version": "${version}",
+	"name": "Fishing Paradise",
+	"description": "Fishing Paradise is all about fishing!",
+	"authors": [
+		"BogdanValentin977"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/fishingparadise/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.bogdanvalentin.fishingparadise.FishingParadise"
+		],
+		"client": [
+			"net.bogdanvalentin.fishingparadise.FishingParadiseClient"
+		],
+		"fabric-datagen": [
+			"net.bogdanvalentin.fishingparadise.FishingParadiseDataGenerator"
+		]
+	},
+	"mixins": [
+		"fishingparadise.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.7",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
