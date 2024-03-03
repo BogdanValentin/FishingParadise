@@ -1,6 +1,7 @@
 package net.bogdanvalentin.fishingparadise.item;
 
 import net.bogdanvalentin.fishingparadise.FishingParadise;
+import net.bogdanvalentin.fishingparadise.item.custom.WoodenFishingRodItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -11,6 +12,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModItems {
+    /** FISH **/
     public static final Item RAW_CARP = registerItem("raw_carp", new Item(new FabricItemSettings().food(ModFoodComponents.RAW_CARP)));
     public static final Item COOKED_CARP = registerItem("cooked_carp", new Item(new FabricItemSettings().food(ModFoodComponents.COOKED_CARP)));
     public static final Item RAW_ANCHOVETA = registerItem("raw_anchoveta", new Item(new FabricItemSettings().food(ModFoodComponents.RAW_ANCHOVETA)));
@@ -21,6 +23,10 @@ public class ModItems {
     public static final Item COOKED_SHRIMP = registerItem("cooked_shrimp", new Item(new FabricItemSettings().food(ModFoodComponents.COOKED_SHRIMP)));
     public static final Item RAW_TUNA = registerItem("raw_tuna", new Item(new FabricItemSettings().food(ModFoodComponents.RAW_TUNA)));
     public static final Item COOKED_TUNA = registerItem("cooked_tuna", new Item(new FabricItemSettings().food(ModFoodComponents.COOKED_TUNA)));
+
+    /** FISHING RODS
+     maxDamage means max durability **/
+    public static final Item WOODEN_FISHING_ROD = registerItem("wooden_fishing_rod", new WoodenFishingRodItem(new FabricItemSettings().maxDamage(64)));
 
 
     private static void addItemsToIngredientItemGroup(FabricItemGroupEntries entries) {
@@ -34,6 +40,8 @@ public class ModItems {
         entries.add(COOKED_SHRIMP);
         entries.add(RAW_TUNA);
         entries.add(COOKED_TUNA);
+
+        entries.add(WOODEN_FISHING_ROD);
     }
 
     private static Item registerItem(String name, Item item) {

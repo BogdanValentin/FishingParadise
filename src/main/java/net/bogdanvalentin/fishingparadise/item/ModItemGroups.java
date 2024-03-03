@@ -25,6 +25,8 @@ public class ModItemGroups {
                         entries.add(ModItems.RAW_TUNA);
                         entries.add(ModItems.COOKED_TUNA);
 
+                        entries.add(ModItems.WOODEN_FISHING_ROD);
+
                     }).build());
     public static void registerItemGroups() {
         FishingParadise.LOGGER.info("Registering Item Groups for " + FishingParadise.MOD_ID);
