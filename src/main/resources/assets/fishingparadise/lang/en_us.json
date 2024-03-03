@@ -1,0 +1,14 @@
+{
+  "item.fishingparadise.raw_carp": "Raw Carp",
+  "item.fishingparadise.cooked_carp": "Cooked Carp",
+  "item.fishingparadise.raw_anchoveta": "Raw Anchoveta",
+  "item.fishingparadise.cooked_anchoveta": "Cooked Anchoveta",
+  "item.fishingparadise.raw_tilapia": "Raw Tilapia",
+  "item.fishingparadise.cooked_tilapia": "Cooked Tilapia",
+  "item.fishingparadise.raw_shrimp": "Raw Shrimp",
+  "item.fishingparadise.cooked_shrimp": "Cooked Shrimp",
+  "item.fishingparadise.raw_tuna": "Raw Tuna",
+  "item.fishingparadise.cooked_tuna": "Cooked Tuna",
+
+  "itemgroup.fish": "Fishing Paradise"
+}

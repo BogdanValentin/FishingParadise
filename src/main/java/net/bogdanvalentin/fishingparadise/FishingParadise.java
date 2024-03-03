@@ -1,5 +1,7 @@
 package net.bogdanvalentin.fishingparadise;
 
+import net.bogdanvalentin.fishingparadise.item.ModItemGroups;
+import net.bogdanvalentin.fishingparadise.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ public class FishingParadise implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Hello Fabric world!");
+		ModItemGroups.registerItemGroups();
+		ModItems.registerModItems();
 	}
 }
