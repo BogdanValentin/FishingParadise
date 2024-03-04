@@ -3,7 +3,8 @@
 	"package": "net.bogdanvalentin.fishingparadise.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"FishingBobberValidityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

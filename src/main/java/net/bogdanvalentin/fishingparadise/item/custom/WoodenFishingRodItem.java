@@ -9,9 +9,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 public class WoodenFishingRodItem extends FishingRodItem {
     public WoodenFishingRodItem(Item.Settings settings) {
@@ -32,6 +34,7 @@ public class WoodenFishingRodItem extends FishingRodItem {
             world.playSound(null, user.getX(), user.getY(), user.getZ(),
                     SoundEvents.ENTITY_FISHING_BOBBER_RETRIEVE, SoundCategory.NEUTRAL,
                     1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+            user.emitGameEvent(GameEvent.ITEM_INTERACT_FINISH);
         } else {
             world.playSound(null, user.getX(), user.getY(), user.getZ(),
                     SoundEvents.ENTITY_FISHING_BOBBER_THROW, SoundCategory.NEUTRAL,
@@ -43,6 +46,8 @@ public class WoodenFishingRodItem extends FishingRodItem {
                 itemStack.getOrCreateNbt().putUuid("bobberUUID", testEntity.getUuid());
                 world.spawnEntity(testEntity);
             }
+            user.incrementStat(Stats.USED.getOrCreateStat(this));
+            user.emitGameEvent(GameEvent.ITEM_INTERACT_START);
         }
 
         NbtCompound nbt = itemStack.getOrCreateNbt();
