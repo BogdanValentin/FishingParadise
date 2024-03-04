@@ -26,7 +26,7 @@ public class ModItems {
 
     /** FISHING RODS
      maxDamage means max durability **/
-    public static final Item WOODEN_FISHING_ROD = registerItem("wooden_fishing_rod", new WoodenFishingRodItem(new FabricItemSettings().maxDamage(64)));
+    public static final Item WOODEN_FISHING_ROD = registerItem("wooden_fishing_rod", new WoodenFishingRodItem(new Item.Settings().maxDamage(64)));
 
 
     private static void addItemsToIngredientItemGroup(FabricItemGroupEntries entries) {

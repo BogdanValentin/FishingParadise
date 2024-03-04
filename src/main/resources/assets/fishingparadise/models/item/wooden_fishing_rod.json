@@ -1,6 +1,14 @@
 {
-  "parent": "item/generated",
+  "parent": "item/handheld_rod",
   "textures": {
     "layer0": "fishingparadise:item/wooden_fishing_rod"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "cast": 1
+      },
+      "model": "fishingparadise:item/wooden_fishing_rod_cast"
+    }
+  ]
 }
