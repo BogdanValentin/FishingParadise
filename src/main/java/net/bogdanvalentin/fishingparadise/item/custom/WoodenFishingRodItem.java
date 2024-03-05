@@ -5,8 +5,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -30,7 +28,6 @@ public class WoodenFishingRodItem extends FishingRodItem {
                     p.sendToolBreakStatus(hand);
                 });
             }
-
             world.playSound(null, user.getX(), user.getY(), user.getZ(),
                     SoundEvents.ENTITY_FISHING_BOBBER_RETRIEVE, SoundCategory.NEUTRAL,
                     1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
@@ -43,30 +40,18 @@ public class WoodenFishingRodItem extends FishingRodItem {
                 i = EnchantmentHelper.getLure(itemStack);
                 int j = EnchantmentHelper.getLuckOfTheSea(itemStack);
                 Entity testEntity = new FishingBobberEntity(user, world, j, i);
-                itemStack.getOrCreateNbt().putUuid("bobberUUID", testEntity.getUuid());
+
                 world.spawnEntity(testEntity);
             }
             user.incrementStat(Stats.USED.getOrCreateStat(this));
             user.emitGameEvent(GameEvent.ITEM_INTERACT_START);
         }
 
-        NbtCompound nbt = itemStack.getOrCreateNbt();
-        if (world instanceof ServerWorld serverWorld) {
-            if (serverWorld.getEntity(nbt.getUuid("bobberUUID")) != null) {
-                nbt.putFloat("cast", 1.0f);
-            } else {
-                nbt.putFloat("cast", 0.0f);
-            }
-        }
+
         return TypedActionResult.success(itemStack, world.isClient());
     }
 
-    @Override
-    public ItemStack getDefaultStack() {
-        ItemStack itemStack = super.getDefaultStack();
-        itemStack.getOrCreateNbt().putFloat("cast", 0.0f);
-        return itemStack;
-    }
+
 }
 
 
