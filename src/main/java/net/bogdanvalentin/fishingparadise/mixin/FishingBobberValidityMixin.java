@@ -1,11 +1,12 @@
 package net.bogdanvalentin.fishingparadise.mixin;
 
-import net.bogdanvalentin.fishingparadise.item.custom.WoodenFishingRodItem;
+import net.bogdanvalentin.fishingparadise.item.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,8 +31,8 @@ public abstract class FishingBobberValidityMixin extends Entity {
         ItemStack mainHandStack = playerEntity.getMainHandStack();
         ItemStack offHandStack = playerEntity.getOffHandStack();
 
-        boolean mainHandHasRod = mainHandStack.getItem() instanceof WoodenFishingRodItem;
-        boolean offHandHasRod = offHandStack.getItem() instanceof WoodenFishingRodItem;
+        boolean mainHandHasRod = mainHandStack.isOf(Items.FISHING_ROD) || mainHandStack.isOf(ModItems.WOODEN_FISHING_ROD);
+        boolean offHandHasRod = offHandStack.isOf(Items.FISHING_ROD) || offHandStack.isOf(ModItems.WOODEN_FISHING_ROD);
 
         if (!playerEntity.isRemoved() && playerEntity.isAlive() && (mainHandHasRod || offHandHasRod) && this.squaredDistanceTo(playerEntity) <= 1024.0D) {
             cir.setReturnValue(false);
