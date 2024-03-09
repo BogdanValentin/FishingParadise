@@ -1,9 +1,9 @@
 package net.bogdanvalentin.fishingparadise.item.custom;
 
+import net.bogdanvalentin.fishingparadise.entity.CustomFishingBobberEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.*;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -39,7 +39,7 @@ public class WoodenFishingRodItem extends FishingRodItem {
             if (!world.isClient) {
                 i = EnchantmentHelper.getLure(itemStack);
                 int j = EnchantmentHelper.getLuckOfTheSea(itemStack);
-                Entity testEntity = new FishingBobberEntity(user, world, j, i);
+                Entity testEntity = new CustomFishingBobberEntity(user, world, j, i);
 
                 world.spawnEntity(testEntity);
             }
