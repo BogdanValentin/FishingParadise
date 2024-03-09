@@ -14,6 +14,8 @@ public class ModItemGroups {
             new Identifier(FishingParadise.MOD_ID, "fish"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.fish"))
                     .icon(() -> new ItemStack(ModItems.RAW_CARP)).entries((displayContext, entries) -> {
+                        entries.add(ModItems.WOODEN_FISHING_ROD);
+
                         entries.add(ModItems.RAW_CARP);
                         entries.add(ModItems.COOKED_CARP);
                         entries.add(ModItems.RAW_ANCHOVETA);
@@ -24,9 +26,6 @@ public class ModItemGroups {
                         entries.add(ModItems.COOKED_SHRIMP);
                         entries.add(ModItems.RAW_TUNA);
                         entries.add(ModItems.COOKED_TUNA);
-
-                        entries.add(ModItems.WOODEN_FISHING_ROD);
-
                     }).build());
     public static void registerItemGroups() {
         FishingParadise.LOGGER.info("Registering Item Groups for " + FishingParadise.MOD_ID);

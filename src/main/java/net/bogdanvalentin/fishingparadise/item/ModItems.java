@@ -29,7 +29,7 @@ public class ModItems {
     public static final Item WOODEN_FISHING_ROD = registerItem("wooden_fishing_rod", new WoodenFishingRodItem(new Item.Settings().maxDamage(64)));
 
 
-    private static void addItemsToIngredientItemGroup(FabricItemGroupEntries entries) {
+    private static void addItemsToFoodItemGroup(FabricItemGroupEntries entries) {
         entries.add(RAW_CARP);
         entries.add(COOKED_CARP);
         entries.add(RAW_ANCHOVETA);
@@ -40,16 +40,17 @@ public class ModItems {
         entries.add(COOKED_SHRIMP);
         entries.add(RAW_TUNA);
         entries.add(COOKED_TUNA);
-
+    }
+    private static void addItemsToToolsItemGroup(FabricItemGroupEntries entries) {
         entries.add(WOODEN_FISHING_ROD);
     }
-
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(FishingParadise.MOD_ID, name), item);
     }
     public static void registerModItems() {
         FishingParadise.LOGGER.info("Registering Mod Items for " + FishingParadise.MOD_ID);
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ModItems::addItemsToIngredientItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ModItems::addItemsToToolsItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(ModItems::addItemsToFoodItemGroup);
     }
 }
