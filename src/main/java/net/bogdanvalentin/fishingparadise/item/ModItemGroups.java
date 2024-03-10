@@ -15,6 +15,7 @@ public class ModItemGroups {
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.fish"))
                     .icon(() -> new ItemStack(ModItems.RAW_CARP)).entries((displayContext, entries) -> {
                         entries.add(ModItems.WOODEN_FISHING_ROD);
+                        entries.add(ModItems.METAL_FISHING_ROD);
 
                         entries.add(ModItems.RAW_CARP);
                         entries.add(ModItems.COOKED_CARP);

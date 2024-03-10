@@ -1,6 +1,7 @@
 package net.bogdanvalentin.fishingparadise.item;
 
 import net.bogdanvalentin.fishingparadise.FishingParadise;
+import net.bogdanvalentin.fishingparadise.item.custom.MetalFishingRodItem;
 import net.bogdanvalentin.fishingparadise.item.custom.WoodenFishingRodItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -28,6 +29,8 @@ public class ModItems {
      maxDamage means max durability **/
     public static final Item WOODEN_FISHING_ROD = registerItem("wooden_fishing_rod", new WoodenFishingRodItem(new Item.Settings().maxDamage(64)));
 
+    public static final Item METAL_FISHING_ROD = registerItem("metal_fishing_rod", new MetalFishingRodItem(new Item.Settings().maxDamage(128)));
+
 
     private static void addItemsToFoodItemGroup(FabricItemGroupEntries entries) {
         entries.add(RAW_CARP);
@@ -43,6 +46,7 @@ public class ModItems {
     }
     private static void addItemsToToolsItemGroup(FabricItemGroupEntries entries) {
         entries.add(WOODEN_FISHING_ROD);
+        entries.add(METAL_FISHING_ROD);
     }
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(FishingParadise.MOD_ID, name), item);

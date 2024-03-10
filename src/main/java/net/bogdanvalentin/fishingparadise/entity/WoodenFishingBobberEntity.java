@@ -14,16 +14,16 @@ import net.minecraft.world.World;
 import java.lang.reflect.Field;
 import java.util.Collections;
 
-public class CustomFishingBobberEntity extends FishingBobberEntity {
-    public CustomFishingBobberEntity(EntityType<? extends FishingBobberEntity> type, World world, int luckOfTheSeaLevel, int lureLevel) {
+public class WoodenFishingBobberEntity extends FishingBobberEntity {
+    public WoodenFishingBobberEntity(EntityType<? extends FishingBobberEntity> type, World world, int luckOfTheSeaLevel, int lureLevel) {
         super(type, world, luckOfTheSeaLevel, lureLevel);
     }
 
-    public CustomFishingBobberEntity(EntityType<? extends FishingBobberEntity> entityType, World world) {
+    public WoodenFishingBobberEntity(EntityType<? extends FishingBobberEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public CustomFishingBobberEntity(PlayerEntity thrower, World world, int luckOfTheSeaLevel, int lureLevel) {
+    public WoodenFishingBobberEntity(PlayerEntity thrower, World world, int luckOfTheSeaLevel, int lureLevel) {
         super(thrower, world, luckOfTheSeaLevel, lureLevel);
     }
 
