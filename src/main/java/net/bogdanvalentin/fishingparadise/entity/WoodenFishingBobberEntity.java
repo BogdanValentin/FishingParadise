@@ -7,6 +7,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
@@ -52,6 +53,21 @@ public class WoodenFishingBobberEntity extends FishingBobberEntity {
         return false;
     }
 
+    // Helper class
+    private class ItemWithWeight {
+        ItemStack itemStack;
+        double percent;
+
+        public ItemWithWeight(ItemStack itemStack, double percent) {
+            this.itemStack = itemStack;
+            this.percent = percent;
+        }
+
+        public ItemStack getItem() {
+            return itemStack;
+        }
+    }
+
     public int use(ItemStack usedItem) {
         PlayerEntity playerEntity = this.getPlayerOwner();
         if (this.getWorld().isClient || playerEntity == null || this.removeIfInvalid(playerEntity)) {
@@ -64,15 +80,36 @@ public class WoodenFishingBobberEntity extends FishingBobberEntity {
             this.getWorld().sendEntityStatus(this, EntityStatuses.PULL_HOOKED_ENTITY);
             i = this.getHookedEntity() instanceof ItemEntity ? 3 : 5;
         } else if(accessPrivateVariable() > 0) {
-            ObjectArrayList<ItemStack> pool = new ObjectArrayList<>();
-            pool.add(new ItemStack(ModItems.RAW_TILAPIA));
-            pool.add(new ItemStack(ModItems.RAW_CARP));
-            pool.add(new ItemStack(ModItems.RAW_ANCHOVETA));
-            pool.add(new ItemStack(ModItems.RAW_SHRIMP));
-            pool.add(new ItemStack(ModItems.RAW_TUNA));
 
+            ObjectArrayList<ItemWithWeight> pool = new ObjectArrayList<>();
+            pool.add(new ItemWithWeight(new ItemStack(Items.LILY_PAD), 5));
+            pool.add(new ItemWithWeight(new ItemStack(Items.LEATHER), 4.7));
+            pool.add(new ItemWithWeight(new ItemStack(Items.STICK), 5));
+            pool.add(new ItemWithWeight(new ItemStack(Items.STRING), 5));
+            pool.add(new ItemWithWeight(new ItemStack(Items.BONE), 5));
+            pool.add(new ItemWithWeight(new ItemStack(Items.INK_SAC), 0.2));
+            pool.add(new ItemWithWeight(new ItemStack(Items.GLOW_INK_SAC), 0.1));
+            // 25 chance junk
+
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_TILAPIA), 20));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_CARP), 15));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_ANCHOVETA), 20));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_SHRIMP), 5));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_TUNA), 15));
+            // TODO ADD MORE FISH
+
+            // RANDOM LOOT LOGIC
+            double totalWeight = pool.stream().mapToDouble(item -> item.percent).sum();
+            double randomValue = random.nextDouble() * totalWeight;
             ObjectArrayList<ItemStack> list = new ObjectArrayList<>();
-            list.add(pool.get(getWorld().random.nextInt(5)).copy());
+            double cumulativeWeight = 0;
+            for (ItemWithWeight item : pool) {
+                cumulativeWeight += item.percent;
+                if (randomValue <= cumulativeWeight) {
+                    list.add(item.getItem());
+                    break;
+                }
+            }
 
             Criteria.FISHING_ROD_HOOKED.trigger((ServerPlayerEntity)playerEntity, usedItem, this, list);
             for (ItemStack itemStack : list) {
@@ -95,4 +132,6 @@ public class WoodenFishingBobberEntity extends FishingBobberEntity {
         this.discard();
         return i;
     }
+
+
 }
