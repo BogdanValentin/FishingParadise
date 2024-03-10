@@ -69,7 +69,12 @@ public class MetalFishingBobberEntity extends FishingBobberEntity {
             i = this.getHookedEntity() instanceof ItemEntity ? 3 : 5;
         } else if(accessPrivateVariable() > 0) {
             ObjectArrayList<ItemStack> pool = new ObjectArrayList<>();
-            pool.add(new ItemStack(Items.ACACIA_SLAB)); // TODO ADD FISH
+            pool.add(new ItemStack(ModItems.RAW_TILAPIA));
+            pool.add(new ItemStack(ModItems.RAW_CARP));
+            pool.add(new ItemStack(ModItems.RAW_ANCHOVETA));
+            pool.add(new ItemStack(ModItems.RAW_SHRIMP));
+            pool.add(new ItemStack(ModItems.RAW_TUNA));
+             // TODO ADD FISH
 
 
             ObjectArrayList<ItemStack> list = new ObjectArrayList<>();
