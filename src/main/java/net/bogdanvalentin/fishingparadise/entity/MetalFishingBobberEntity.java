@@ -94,13 +94,14 @@ public class MetalFishingBobberEntity extends FishingBobberEntity {
             pool.add(new ItemWithWeight(new ItemStack(Items.GLOW_INK_SAC), 0.2));
             // 5 chance junk
 
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_TILAPIA), 23));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_TILAPIA), 20));
             pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_CARP), 18));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_ANCHOVETA), 23));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_ANCHOVETA), 20));
             pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_SHRIMP), 6));
             pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_TUNA), 15));
             pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_CRAB), 5));
             pool.add(new ItemWithWeight(new ItemStack(ModItems.STARFISH), 5));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_HERING), 6));
             // TODO ADD MORE FISH
 
 

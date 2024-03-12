@@ -87,7 +87,8 @@ public class NetheriteFishingBobberEntity extends FishingBobberEntity {
 
             ObjectArrayList<ItemWithWeight> pool = new ObjectArrayList<>();
 
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_OCTOPUS), 20));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.OCTOPUS), 10));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.SERPENT), 10));
 
             pool.add(new ItemWithWeight(new ItemStack(Items.NAUTILUS_SHELL), 15));
             pool.add(new ItemWithWeight(new ItemStack(Items.NAME_TAG), 15));

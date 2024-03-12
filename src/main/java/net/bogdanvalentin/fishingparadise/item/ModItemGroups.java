@@ -30,10 +30,13 @@ public class ModItemGroups {
                         entries.add(ModItems.COOKED_TUNA);
                         entries.add(ModItems.RAW_CRAB);
                         entries.add(ModItems.STARFISH);
+                        entries.add(ModItems.RAW_HERING);
+                        entries.add(ModItems.COOKED_HERING);
 
                         entries.add(ModItems.SEA_FOOD);
 
-                        entries.add(ModItems.RAW_OCTOPUS);
+                        entries.add(ModItems.OCTOPUS);
+                        entries.add(ModItems.SERPENT);
                     }).build());
     public static void registerItemGroups() {
         FishingParadise.LOGGER.info("Registering Item Groups for " + FishingParadise.MOD_ID);

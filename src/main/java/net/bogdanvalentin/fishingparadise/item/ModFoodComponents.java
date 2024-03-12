@@ -15,13 +15,19 @@ public class ModFoodComponents {
     public static final FoodComponent COOKED_SHRIMP = new FoodComponent.Builder().hunger(2).saturationModifier(0.2f).meat().build();
     public static final FoodComponent RAW_TUNA = new FoodComponent.Builder().hunger(3).saturationModifier(0.3f).meat().build();
     public static final FoodComponent COOKED_TUNA = new FoodComponent.Builder().hunger(8).saturationModifier(0.8f).meat().build();
+    public static final FoodComponent RAW_HERING = new FoodComponent.Builder().hunger(2).saturationModifier(0.2f).meat().build();
+    public static final FoodComponent COOKED_HERING = new FoodComponent.Builder().hunger(6).saturationModifier(0.5f).meat().build();
     public static final FoodComponent RAW_CRAB = new FoodComponent.Builder().hunger(2).saturationModifier(0.1f).build();
     public static final FoodComponent STARFISH = new FoodComponent.Builder().hunger(1).saturationModifier(0.1f).build();
     // 20 ticks = 1 second
     public static final FoodComponent SEA_FOOD = new FoodComponent.Builder().hunger(8).saturationModifier(0.8f)
             .statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 2400), 1f).build();
-    public static final FoodComponent RAW_OCTOPUS = new FoodComponent.Builder().hunger(1).saturationModifier(0.1f)
+    public static final FoodComponent OCTOPUS = new FoodComponent.Builder().hunger(1).saturationModifier(0.5f)
             .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f)
             .statusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 100), 1f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 6000), 1f).alwaysEdible().meat().build();
+            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 6000), 1f).alwaysEdible().build();
+    public static final FoodComponent SERPENT = new FoodComponent.Builder().hunger(2).saturationModifier(0.3f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 100), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 6000), 1f).alwaysEdible().build();
 }

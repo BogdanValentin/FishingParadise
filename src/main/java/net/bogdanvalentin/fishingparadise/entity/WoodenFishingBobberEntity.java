@@ -91,11 +91,14 @@ public class WoodenFishingBobberEntity extends FishingBobberEntity {
             pool.add(new ItemWithWeight(new ItemStack(Items.GLOW_INK_SAC), 0.1));
             // 25 chance junk
 
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_TILAPIA), 20));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_CARP), 15));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_ANCHOVETA), 20));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_SHRIMP), 5));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_TUNA), 15));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_TILAPIA), 14));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_CARP), 12));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_ANCHOVETA), 14));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_SHRIMP), 3));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_TUNA), 12));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_CRAB), 5));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.STARFISH), 5));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_HERING), 10));
             // TODO ADD MORE FISH
 
             // RANDOM LOOT LOGIC

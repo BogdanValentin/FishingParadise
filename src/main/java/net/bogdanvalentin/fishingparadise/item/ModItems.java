@@ -28,13 +28,15 @@ public class ModItems {
     public static final Item COOKED_TUNA = registerItem("cooked_tuna", new Item(new FabricItemSettings().food(ModFoodComponents.COOKED_TUNA)));
     public static final Item RAW_CRAB = registerItem("raw_crab", new Item(new FabricItemSettings().food(ModFoodComponents.RAW_CRAB)));
     public static final Item STARFISH = registerItem("starfish", new Item(new FabricItemSettings().food(ModFoodComponents.STARFISH)));
+    public static final Item RAW_HERING= registerItem("raw_hering", new Item(new FabricItemSettings().food(ModFoodComponents.RAW_HERING)));
+    public static final Item COOKED_HERING = registerItem("cooked_hering", new Item(new FabricItemSettings().food(ModFoodComponents.COOKED_HERING)));
 
     /** LEGENDARY FISH **/
-    public static final Item RAW_OCTOPUS = registerItem("raw_octopus", new Item(new FabricItemSettings().food(ModFoodComponents.RAW_OCTOPUS).rarity(Rarity.RARE)));
+    public static final Item OCTOPUS = registerItem("octopus", new Item(new FabricItemSettings().food(ModFoodComponents.OCTOPUS).rarity(Rarity.RARE)));
+    public static final Item SERPENT = registerItem("serpent", new Item(new FabricItemSettings().food(ModFoodComponents.SERPENT).rarity(Rarity.RARE)));
 
     /** FOODS **/
     public static final Item SEA_FOOD = registerItem("sea_food", new Item(new FabricItemSettings().food(ModFoodComponents.SEA_FOOD)));
-
 
     /** FISHING RODS
      maxDamage means max durability **/
@@ -54,9 +56,12 @@ public class ModItems {
         entries.add(COOKED_SHRIMP);
         entries.add(RAW_TUNA);
         entries.add(COOKED_TUNA);
+        entries.add(RAW_HERING);
+        entries.add(COOKED_HERING);
         entries.add(RAW_CRAB);
         entries.add(STARFISH);
-        entries.add(RAW_OCTOPUS);
+        entries.add(OCTOPUS);
+        entries.add(SERPENT);
         entries.add(SEA_FOOD);
     }
     private static void addItemsToToolsItemGroup(FabricItemGroupEntries entries) {
@@ -69,7 +74,6 @@ public class ModItems {
     }
     public static void registerModItems() {
         FishingParadise.LOGGER.info("Registering Mod Items for " + FishingParadise.MOD_ID);
-
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(ModItems::addItemsToToolsItemGroup);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FOOD_AND_DRINK).register(ModItems::addItemsToFoodItemGroup);
     }
