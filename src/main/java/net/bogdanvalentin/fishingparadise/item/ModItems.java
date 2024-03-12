@@ -2,6 +2,7 @@ package net.bogdanvalentin.fishingparadise.item;
 
 import net.bogdanvalentin.fishingparadise.FishingParadise;
 import net.bogdanvalentin.fishingparadise.item.custom.MetalFishingRodItem;
+import net.bogdanvalentin.fishingparadise.item.custom.NetheriteFishingRodItem;
 import net.bogdanvalentin.fishingparadise.item.custom.WoodenFishingRodItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -11,6 +12,7 @@ import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 public class ModItems {
     /** FISH **/
@@ -24,12 +26,21 @@ public class ModItems {
     public static final Item COOKED_SHRIMP = registerItem("cooked_shrimp", new Item(new FabricItemSettings().food(ModFoodComponents.COOKED_SHRIMP)));
     public static final Item RAW_TUNA = registerItem("raw_tuna", new Item(new FabricItemSettings().food(ModFoodComponents.RAW_TUNA)));
     public static final Item COOKED_TUNA = registerItem("cooked_tuna", new Item(new FabricItemSettings().food(ModFoodComponents.COOKED_TUNA)));
+    public static final Item RAW_CRAB = registerItem("raw_crab", new Item(new FabricItemSettings().food(ModFoodComponents.RAW_CRAB)));
+    public static final Item STARFISH = registerItem("starfish", new Item(new FabricItemSettings().food(ModFoodComponents.STARFISH)));
+
+    /** LEGENDARY FISH **/
+    public static final Item RAW_OCTOPUS = registerItem("raw_octopus", new Item(new FabricItemSettings().food(ModFoodComponents.RAW_OCTOPUS).rarity(Rarity.RARE)));
+
+    /** FOODS **/
+    public static final Item SEA_FOOD = registerItem("sea_food", new Item(new FabricItemSettings().food(ModFoodComponents.SEA_FOOD)));
+
 
     /** FISHING RODS
      maxDamage means max durability **/
     public static final Item WOODEN_FISHING_ROD = registerItem("wooden_fishing_rod", new WoodenFishingRodItem(new Item.Settings().maxDamage(64)));
-
     public static final Item METAL_FISHING_ROD = registerItem("metal_fishing_rod", new MetalFishingRodItem(new Item.Settings().maxDamage(128)));
+    public static final Item NETHERITE_FISHING_ROD = registerItem("netherite_fishing_rod", new NetheriteFishingRodItem(new Item.Settings().maxDamage(256)));
 
 
     private static void addItemsToFoodItemGroup(FabricItemGroupEntries entries) {
@@ -43,10 +54,15 @@ public class ModItems {
         entries.add(COOKED_SHRIMP);
         entries.add(RAW_TUNA);
         entries.add(COOKED_TUNA);
+        entries.add(RAW_CRAB);
+        entries.add(STARFISH);
+        entries.add(RAW_OCTOPUS);
+        entries.add(SEA_FOOD);
     }
     private static void addItemsToToolsItemGroup(FabricItemGroupEntries entries) {
         entries.add(WOODEN_FISHING_ROD);
         entries.add(METAL_FISHING_ROD);
+        entries.add(NETHERITE_FISHING_ROD);
     }
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(FishingParadise.MOD_ID, name), item);

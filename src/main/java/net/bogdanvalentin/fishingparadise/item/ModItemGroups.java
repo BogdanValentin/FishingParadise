@@ -16,6 +16,7 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ModItems.RAW_CARP)).entries((displayContext, entries) -> {
                         entries.add(ModItems.WOODEN_FISHING_ROD);
                         entries.add(ModItems.METAL_FISHING_ROD);
+                        entries.add(ModItems.NETHERITE_FISHING_ROD);
 
                         entries.add(ModItems.RAW_CARP);
                         entries.add(ModItems.COOKED_CARP);
@@ -27,6 +28,12 @@ public class ModItemGroups {
                         entries.add(ModItems.COOKED_SHRIMP);
                         entries.add(ModItems.RAW_TUNA);
                         entries.add(ModItems.COOKED_TUNA);
+                        entries.add(ModItems.RAW_CRAB);
+                        entries.add(ModItems.STARFISH);
+
+                        entries.add(ModItems.SEA_FOOD);
+
+                        entries.add(ModItems.RAW_OCTOPUS);
                     }).build());
     public static void registerItemGroups() {
         FishingParadise.LOGGER.info("Registering Item Groups for " + FishingParadise.MOD_ID);

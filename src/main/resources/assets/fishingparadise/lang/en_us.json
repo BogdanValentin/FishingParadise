@@ -9,9 +9,14 @@
   "item.fishingparadise.cooked_shrimp": "Cooked Shrimp",
   "item.fishingparadise.raw_tuna": "Raw Tuna",
   "item.fishingparadise.cooked_tuna": "Cooked Tuna",
+  "item.fishingparadise.starfish": "Starfish",
+  "item.fishingparadise.raw_crab": "Raw Crab",
+  "item.fishingparadise.sea_food": "Sea Food",
+  "item.fishingparadise.raw_octopus": "Raw Octopus",
 
   "item.fishingparadise.wooden_fishing_rod": "Wooden Fishing Rod",
   "item.fishingparadise.metal_fishing_rod": "Metal Fishing Rod",
+  "item.fishingparadise.netherite_fishing_rod": "Netherite Fishing Rod",
 
   "itemgroup.fish": "Fishing Paradise"
 }

@@ -15,19 +15,20 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.world.World;
+
 import java.lang.reflect.Field;
 import java.util.Collections;
 
-public class MetalFishingBobberEntity extends FishingBobberEntity {
-    public MetalFishingBobberEntity(EntityType<? extends FishingBobberEntity> type, World world, int luckOfTheSeaLevel, int lureLevel) {
+public class NetheriteFishingBobberEntity extends FishingBobberEntity {
+    public NetheriteFishingBobberEntity(EntityType<? extends FishingBobberEntity> type, World world, int luckOfTheSeaLevel, int lureLevel) {
         super(type, world, luckOfTheSeaLevel, lureLevel);
     }
 
-    public MetalFishingBobberEntity(EntityType<? extends FishingBobberEntity> entityType, World world) {
+    public NetheriteFishingBobberEntity(EntityType<? extends FishingBobberEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public MetalFishingBobberEntity(PlayerEntity thrower, World world, int luckOfTheSeaLevel, int lureLevel) {
+    public NetheriteFishingBobberEntity(PlayerEntity thrower, World world, int luckOfTheSeaLevel, int lureLevel) {
         super(thrower, world, luckOfTheSeaLevel, lureLevel);
     }
 
@@ -47,8 +48,8 @@ public class MetalFishingBobberEntity extends FishingBobberEntity {
     private boolean removeIfInvalid(PlayerEntity player) {
         ItemStack itemStack = player.getMainHandStack();
         ItemStack itemStack2 = player.getOffHandStack();
-        boolean bl = itemStack.isOf(ModItems.METAL_FISHING_ROD);
-        boolean bl2 = itemStack2.isOf(ModItems.METAL_FISHING_ROD);
+        boolean bl = itemStack.isOf(ModItems.NETHERITE_FISHING_ROD);
+        boolean bl2 = itemStack2.isOf(ModItems.NETHERITE_FISHING_ROD);
         if (player.isRemoved() || !player.isAlive() || !bl && !bl2 || this.squaredDistanceTo(player) > 1024.0) {
             this.discard();
             return true;
@@ -85,24 +86,16 @@ public class MetalFishingBobberEntity extends FishingBobberEntity {
         } else if(accessPrivateVariable() > 0) {
 
             ObjectArrayList<ItemWithWeight> pool = new ObjectArrayList<>();
-            pool.add(new ItemWithWeight(new ItemStack(Items.LILY_PAD), 1));
-            pool.add(new ItemWithWeight(new ItemStack(Items.LEATHER), 0.4));
-            pool.add(new ItemWithWeight(new ItemStack(Items.STICK), 1));
-            pool.add(new ItemWithWeight(new ItemStack(Items.STRING), 1));
-            pool.add(new ItemWithWeight(new ItemStack(Items.BONE), 1));
-            pool.add(new ItemWithWeight(new ItemStack(Items.INK_SAC), 0.4));
-            pool.add(new ItemWithWeight(new ItemStack(Items.GLOW_INK_SAC), 0.2));
-            // 5 chance junk
 
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_TILAPIA), 23));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_CARP), 18));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_ANCHOVETA), 23));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_SHRIMP), 6));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_TUNA), 15));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_CRAB), 5));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.STARFISH), 5));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.RAW_OCTOPUS), 20));
+
+            pool.add(new ItemWithWeight(new ItemStack(Items.NAUTILUS_SHELL), 15));
+            pool.add(new ItemWithWeight(new ItemStack(Items.NAME_TAG), 15));
+            pool.add(new ItemWithWeight(new ItemStack(Items.HEART_OF_THE_SEA), 2));
+            pool.add(new ItemWithWeight(new ItemStack(Items.ANGLER_POTTERY_SHERD), 8));
+            pool.add(new ItemWithWeight(new ItemStack(Items.PRISMARINE_SHARD), 20));
+            pool.add(new ItemWithWeight(new ItemStack(Items.PRISMARINE_CRYSTALS), 20));
             // TODO ADD MORE FISH
-
 
             // RANDOM LOOT LOGIC
             double totalWeight = pool.stream().mapToDouble(item -> item.percent).sum();
@@ -118,17 +111,21 @@ public class MetalFishingBobberEntity extends FishingBobberEntity {
             }
 
             Criteria.FISHING_ROD_HOOKED.trigger((ServerPlayerEntity)playerEntity, usedItem, this, list);
-            for (ItemStack itemStack : list) {
-                ItemEntity itemEntity = new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), itemStack);
-                double d = playerEntity.getX() - this.getX();
-                double e = playerEntity.getY() - this.getY();
-                double f = playerEntity.getZ() - this.getZ();
-                double g = 0.1;
-                itemEntity.setVelocity(d * 0.1, e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.08, f * 0.1);
-                this.getWorld().spawnEntity(itemEntity);
-                playerEntity.getWorld().spawnEntity(new ExperienceOrbEntity(playerEntity.getWorld(), playerEntity.getX(), playerEntity.getY() + 0.5, playerEntity.getZ() + 0.5, this.random.nextInt(6) + 1));
-                if (!itemStack.isIn(ItemTags.FISHES)) continue;
-                playerEntity.increaseStat(Stats.FISH_CAUGHT, 1);
+            // RANDOM NO CATCH, CHANCE 1 IN 8
+            int catchChance = random.nextInt(8);
+            if(catchChance == 3) {
+                for (ItemStack itemStack : list) {
+                    ItemEntity itemEntity = new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), itemStack);
+                    double d = playerEntity.getX() - this.getX();
+                    double e = playerEntity.getY() - this.getY();
+                    double f = playerEntity.getZ() - this.getZ();
+                    double g = 0.1;
+                    itemEntity.setVelocity(d * 0.1, e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.08, f * 0.1);
+                    this.getWorld().spawnEntity(itemEntity);
+                    playerEntity.getWorld().spawnEntity(new ExperienceOrbEntity(playerEntity.getWorld(), playerEntity.getX(), playerEntity.getY() + 0.5, playerEntity.getZ() + 0.5, this.random.nextInt(6) + 1));
+                    if (!itemStack.isIn(ItemTags.FISHES)) continue;
+                    playerEntity.increaseStat(Stats.FISH_CAUGHT, 1);
+                }
             }
             i = 1;
         }
@@ -138,4 +135,6 @@ public class MetalFishingBobberEntity extends FishingBobberEntity {
         this.discard();
         return i;
     }
+
+
 }

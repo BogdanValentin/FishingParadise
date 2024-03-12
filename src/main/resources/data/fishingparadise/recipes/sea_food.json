@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "sea_food",
+  "ingredients": [
+    {
+      "item": "fishingparadise:raw_crab"
+    },
+    {
+      "item": "fishingparadise:starfish"
+    },
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "minecraft:dried_kelp"
+    }
+  ],
+  "result": {
+    "item": "fishingparadise:sea_food"
+  }
+}
