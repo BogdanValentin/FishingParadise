@@ -34,6 +34,7 @@ public class ModItems {
     /** LEGENDARY FISH **/
     public static final Item OCTOPUS = registerItem("octopus", new Item(new FabricItemSettings().food(ModFoodComponents.OCTOPUS).rarity(Rarity.RARE)));
     public static final Item SERPENT = registerItem("serpent", new Item(new FabricItemSettings().food(ModFoodComponents.SERPENT).rarity(Rarity.RARE)));
+    public static final Item ANGLERFISH = registerItem("anglerfish", new Item(new FabricItemSettings().food(ModFoodComponents.ANGLERFISH).rarity(Rarity.RARE)));
 
     /** FOODS **/
     public static final Item SEA_FOOD = registerItem("sea_food", new Item(new FabricItemSettings().food(ModFoodComponents.SEA_FOOD)));
@@ -61,6 +62,7 @@ public class ModItems {
         entries.add(RAW_CRAB);
         entries.add(STARFISH);
         entries.add(OCTOPUS);
+        entries.add(ANGLERFISH);
         entries.add(SERPENT);
         entries.add(SEA_FOOD);
     }

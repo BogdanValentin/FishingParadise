@@ -84,14 +84,13 @@ public class NetheriteFishingBobberEntity extends FishingBobberEntity {
             this.getWorld().sendEntityStatus(this, EntityStatuses.PULL_HOOKED_ENTITY);
             i = this.getHookedEntity() instanceof ItemEntity ? 3 : 5;
         } else if(accessPrivateVariable() > 0) {
-
             ObjectArrayList<ItemWithWeight> pool = new ObjectArrayList<>();
-
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.OCTOPUS), 10));
-            pool.add(new ItemWithWeight(new ItemStack(ModItems.SERPENT), 10));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.OCTOPUS), 7));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.SERPENT), 7));
+            pool.add(new ItemWithWeight(new ItemStack(ModItems.ANGLERFISH), 7));
 
             pool.add(new ItemWithWeight(new ItemStack(Items.NAUTILUS_SHELL), 15));
-            pool.add(new ItemWithWeight(new ItemStack(Items.NAME_TAG), 15));
+            pool.add(new ItemWithWeight(new ItemStack(Items.NAME_TAG), 14));
             pool.add(new ItemWithWeight(new ItemStack(Items.HEART_OF_THE_SEA), 2));
             pool.add(new ItemWithWeight(new ItemStack(Items.ANGLER_POTTERY_SHERD), 8));
             pool.add(new ItemWithWeight(new ItemStack(Items.PRISMARINE_SHARD), 20));

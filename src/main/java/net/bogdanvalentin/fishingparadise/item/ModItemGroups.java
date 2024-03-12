@@ -36,6 +36,7 @@ public class ModItemGroups {
                         entries.add(ModItems.SEA_FOOD);
 
                         entries.add(ModItems.OCTOPUS);
+                        entries.add(ModItems.ANGLERFISH);
                         entries.add(ModItems.SERPENT);
                     }).build());
     public static void registerItemGroups() {

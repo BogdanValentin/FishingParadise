@@ -26,6 +26,10 @@ public class ModFoodComponents {
             .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f)
             .statusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 100), 1f)
             .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 6000), 1f).alwaysEdible().build();
+    public static final FoodComponent ANGLERFISH = new FoodComponent.Builder().hunger(1).saturationModifier(0.5f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 100), 1f)
+            .statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 6000), 1f).alwaysEdible().build();
     public static final FoodComponent SERPENT = new FoodComponent.Builder().hunger(2).saturationModifier(0.3f)
             .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f)
             .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 100), 1f)
