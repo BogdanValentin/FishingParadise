@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "fishingparadise:raw_tuna"
+    }
+  ],
+  "result": {
+    "item": "fishingparadise:fish_fillets"
+  }
+}

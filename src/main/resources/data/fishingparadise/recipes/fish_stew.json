@@ -3,19 +3,19 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "fishingparadise:raw_crab"
+      "item": "fishingparadise:cooked_fish_fillets"
     },
     {
-      "item": "fishingparadise:raw_shrimp"
+      "item": "minecraft:carrot"
     },
     {
-      "item": "minecraft:dried_kelp"
+      "item": "minecraft:potato"
     },
     {
       "item": "minecraft:bowl"
     }
   ],
   "result": {
-    "item": "fishingparadise:sea_food"
+    "item": "fishingparadise:fish_stew"
   }
 }

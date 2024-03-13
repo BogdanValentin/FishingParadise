@@ -18,25 +18,32 @@ public class ModItemGroups {
                         entries.add(ModItems.METAL_FISHING_ROD);
                         entries.add(ModItems.NETHERITE_FISHING_ROD);
 
-                        entries.add(ModItems.RAW_CARP);
-                        entries.add(ModItems.COOKED_CARP);
                         entries.add(ModItems.RAW_ANCHOVETA);
                         entries.add(ModItems.COOKED_ANCHOVETA);
-                        entries.add(ModItems.RAW_TILAPIA);
-                        entries.add(ModItems.COOKED_TILAPIA);
-                        entries.add(ModItems.RAW_SHRIMP);
-                        entries.add(ModItems.COOKED_SHRIMP);
-                        entries.add(ModItems.RAW_TUNA);
-                        entries.add(ModItems.COOKED_TUNA);
-                        entries.add(ModItems.RAW_CRAB);
-                        entries.add(ModItems.STARFISH);
+                        entries.add(ModItems.RAW_CARP);
+                        entries.add(ModItems.COOKED_CARP);
                         entries.add(ModItems.RAW_HERING);
                         entries.add(ModItems.COOKED_HERING);
+                        entries.add(ModItems.RAW_SHRIMP);
+                        entries.add(ModItems.COOKED_SHRIMP);
+                        entries.add(ModItems.RAW_TILAPIA);
+                        entries.add(ModItems.COOKED_TILAPIA);
+                        entries.add(ModItems.RAW_TUNA);
+                        entries.add(ModItems.COOKED_TUNA);
 
+                        entries.add(ModItems.RAW_CRAB);
+                        entries.add(ModItems.STARFISH);
+
+                        entries.add(ModItems.FISH_FILLETS);
+                        entries.add(ModItems.COOKED_FISH_FILLETS);
+                        entries.add(ModItems.FISH_AND_CHIPS);
+                        entries.add(ModItems.FISH_PIE);
+                        entries.add(ModItems.FISH_STEW);
                         entries.add(ModItems.SEA_FOOD);
+                        entries.add(ModItems.SUSHI);
 
-                        entries.add(ModItems.OCTOPUS);
                         entries.add(ModItems.ANGLERFISH);
+                        entries.add(ModItems.OCTOPUS);
                         entries.add(ModItems.SERPENT);
                     }).build());
     public static void registerItemGroups() {

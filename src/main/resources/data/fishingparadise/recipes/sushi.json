@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "fishingparadise:raw_tuna"
+    },
+    "X": {
+      "item": "fishingparadise:raw_shrimp"
+    },
+    "O": {
+      "item": "minecraft:dried_kelp"
+    }
+  },
+  "pattern": [
+    " # ",
+    " X ",
+    " O "
+  ],
+  "result": {
+    "count": 3,
+    "item": "fishingparadise:sushi"
+  }
+}
