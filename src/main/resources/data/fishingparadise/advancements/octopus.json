@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "fishingparadise:octopus"
+    },
+    "title": "It’s ex-squid-it",
+    "description": "Catch an Octopus",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "fishingparadise:netherite_fishing_rod",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishingparadise:octopus"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

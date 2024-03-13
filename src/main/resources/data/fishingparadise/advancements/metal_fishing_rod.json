@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "fishingparadise:metal_fishing_rod"
+    },
+    "title": "Holy carp!",
+    "description": "Craft a Metal Fishing Rod",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "fishingparadise:fishingparadise",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishingparadise:metal_fishing_rod"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

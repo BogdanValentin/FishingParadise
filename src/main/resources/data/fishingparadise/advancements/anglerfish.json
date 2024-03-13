@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "fishingparadise:anglerfish"
+    },
+    "title": "You light up my life",
+    "description": "Catch an Anglerfish",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "fishingparadise:netherite_fishing_rod",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishingparadise:anglerfish"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

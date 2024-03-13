@@ -13,7 +13,7 @@ public class ModItemGroups {
     public static final ItemGroup FISH_GROUP = Registry.register(Registries.ITEM_GROUP,
             new Identifier(FishingParadise.MOD_ID, "fish"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.fish"))
-                    .icon(() -> new ItemStack(ModItems.RAW_CARP)).entries((displayContext, entries) -> {
+                    .icon(() -> new ItemStack(ModItems.RAW_SHRIMP)).entries((displayContext, entries) -> {
                         entries.add(ModItems.WOODEN_FISHING_ROD);
                         entries.add(ModItems.METAL_FISHING_ROD);
                         entries.add(ModItems.NETHERITE_FISHING_ROD);
