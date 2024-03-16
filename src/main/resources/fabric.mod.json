@@ -1,15 +1,14 @@
 {
 	"schemaVersion": 1,
 	"id": "fishingparadise",
-	"version": "${version}",
+	"version": "${1.0}",
 	"name": "Fishing Paradise",
 	"description": "Fishing Paradise is all about fishing!",
 	"authors": [
 		"BogdanValentin977"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/BogdanValentin/FishingParadise"
 	},
 	"license": "MIT",
 	"icon": "assets/fishingparadise/icon.png",
