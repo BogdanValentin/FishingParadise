@@ -33,9 +33,9 @@ public class ModItems {
     public static final Item STARFISH = registerItem("starfish", new Item(new FabricItemSettings().food(ModFoodComponents.STARFISH)));
 
     /** LEGENDARY FISH **/
-    public static final Item ANGLERFISH = registerItem("anglerfish", new Item(new FabricItemSettings().food(ModFoodComponents.ANGLERFISH).rarity(Rarity.RARE)));
-    public static final Item OCTOPUS = registerItem("octopus", new Item(new FabricItemSettings().food(ModFoodComponents.OCTOPUS).rarity(Rarity.RARE)));
-    public static final Item SERPENT = registerItem("serpent", new Item(new FabricItemSettings().food(ModFoodComponents.SERPENT).rarity(Rarity.RARE)));
+    public static final Item ANGLERFISH = registerItem("anglerfish", new Item(new FabricItemSettings().food(ModFoodComponents.ANGLERFISH).rarity(Rarity.RARE).maxCount(16)));
+    public static final Item OCTOPUS = registerItem("octopus", new Item(new FabricItemSettings().food(ModFoodComponents.OCTOPUS).rarity(Rarity.RARE).maxCount(16)));
+    public static final Item SERPENT = registerItem("serpent", new Item(new FabricItemSettings().food(ModFoodComponents.SERPENT).rarity(Rarity.RARE).maxCount(16)));
 
     /** FOODS **/
     public static final Item FISH_FILLETS = registerItem("fish_fillets", new Item(new FabricItemSettings().food(ModFoodComponents.FISH_FILLETS)));
