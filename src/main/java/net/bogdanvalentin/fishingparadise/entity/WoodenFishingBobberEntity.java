@@ -2,6 +2,7 @@ package net.bogdanvalentin.fishingparadise.entity;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.bogdanvalentin.fishingparadise.item.ModItems;
+import net.bogdanvalentin.fishingparadise.mixin.FishingBobberAccessor;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,7 +13,6 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.world.World;
-import java.lang.reflect.Field;
 import java.util.Collections;
 
 public class WoodenFishingBobberEntity extends FishingBobberEntity {
@@ -26,19 +26,6 @@ public class WoodenFishingBobberEntity extends FishingBobberEntity {
 
     public WoodenFishingBobberEntity(PlayerEntity thrower, World world, int luckOfTheSeaLevel, int lureLevel) {
         super(thrower, world, luckOfTheSeaLevel, lureLevel);
-    }
-
-    public int accessPrivateVariable() {
-        try {
-            // Access the private variable using reflection
-            Field privateVarField = FishingBobberEntity.class.getDeclaredField("hookCountdown");
-            privateVarField.setAccessible(true);
-
-            return (int) privateVarField.get(this);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 
     private boolean removeIfInvalid(PlayerEntity player) {
@@ -74,12 +61,13 @@ public class WoodenFishingBobberEntity extends FishingBobberEntity {
             return 0;
         }
         int i = 0;
+        int hookCountdown = ((FishingBobberAccessor) this).getHookCountdown();
         if (this.getHookedEntity() != null) {
             this.pullHookedEntity(this.getHookedEntity());
             Criteria.FISHING_ROD_HOOKED.trigger((ServerPlayerEntity)playerEntity, usedItem, this, Collections.emptyList());
             this.getWorld().sendEntityStatus(this, EntityStatuses.PULL_HOOKED_ENTITY);
             i = this.getHookedEntity() instanceof ItemEntity ? 3 : 5;
-        } else if(accessPrivateVariable() > 0) {
+        } else if(hookCountdown > 0) {
 
             ObjectArrayList<ItemWithWeight> pool = new ObjectArrayList<>();
             pool.add(new ItemWithWeight(new ItemStack(Items.LILY_PAD), 5));
