@@ -1,6 +1,7 @@
 package net.bogdanvalentin.fishingparadise.item;
 
 import net.bogdanvalentin.fishingparadise.FishingParadise;
+import net.bogdanvalentin.fishingparadise.item.custom.BambooFishingRodItem;
 import net.bogdanvalentin.fishingparadise.item.custom.MetalFishingRodItem;
 import net.bogdanvalentin.fishingparadise.item.custom.NetheriteFishingRodItem;
 import net.bogdanvalentin.fishingparadise.item.custom.WoodenFishingRodItem;
@@ -49,6 +50,7 @@ public class ModItems {
     /** FISHING RODS
      maxDamage means max durability **/
     public static final Item WOODEN_FISHING_ROD = registerItem("wooden_fishing_rod", new WoodenFishingRodItem(new Item.Settings().maxDamage(64)));
+    public static final Item BAMBOO_FISHING_ROD = registerItem("bamboo_fishing_rod", new BambooFishingRodItem(new Item.Settings().maxDamage(64)));
     public static final Item METAL_FISHING_ROD = registerItem("metal_fishing_rod", new MetalFishingRodItem(new Item.Settings().maxDamage(128)));
     public static final Item NETHERITE_FISHING_ROD = registerItem("netherite_fishing_rod", new NetheriteFishingRodItem(new Item.Settings().maxDamage(256)));
 
@@ -83,6 +85,7 @@ public class ModItems {
         entries.add(SERPENT);
     }
     private static void addItemsToToolsItemGroup(FabricItemGroupEntries entries) {
+        entries.add(BAMBOO_FISHING_ROD);
         entries.add(WOODEN_FISHING_ROD);
         entries.add(METAL_FISHING_ROD);
         entries.add(NETHERITE_FISHING_ROD);

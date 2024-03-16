@@ -4,7 +4,7 @@
       "item": "fishingparadise:wooden_fishing_rod"
     },
     "title": "It's ofishial",
-    "description": "Craft a Wooden Fishing Rod",
+    "description": "Craft a Wooden or Bamboo Fishing Rod",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
@@ -16,11 +16,15 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "fishingparadise:wooden_fishing_rod"
-            ]
+            "item": "fishingparadise:wooden_fishing_rod"
+          },
+          {
+            "item": "fishingparadise:bamboo_fishing_rod"
           }
-        ]
+        ],
+        "amount": {
+          "min": 1
+        }
       }
     }
   }

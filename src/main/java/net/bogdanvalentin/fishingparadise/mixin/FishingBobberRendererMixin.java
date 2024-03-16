@@ -13,7 +13,8 @@ public class FishingBobberRendererMixin {
     @ModifyExpressionValue(method = "render(Lnet/minecraft/entity/projectile/FishingBobberEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
     private boolean addCustomFishingRodToFishingRodCheck(boolean original, @Local ItemStack itemStack) {
-        return original || itemStack.isOf(ModItems.WOODEN_FISHING_ROD)
+        return original || itemStack.isOf(ModItems.BAMBOO_FISHING_ROD)
+                        || itemStack.isOf(ModItems.WOODEN_FISHING_ROD)
                         || itemStack.isOf(ModItems.METAL_FISHING_ROD)
                         || itemStack.isOf(ModItems.NETHERITE_FISHING_ROD);
     }

@@ -32,10 +32,12 @@ public abstract class FishingBobberValidityMixin extends Entity {
         ItemStack offHandStack = playerEntity.getOffHandStack();
 
         boolean mainHandHasRod = mainHandStack.isOf(Items.FISHING_ROD)
+                || mainHandStack.isOf(ModItems.BAMBOO_FISHING_ROD)
                 || mainHandStack.isOf(ModItems.WOODEN_FISHING_ROD)
                 || mainHandStack.isOf(ModItems.METAL_FISHING_ROD)
                 || mainHandStack.isOf(ModItems.NETHERITE_FISHING_ROD);
         boolean offHandHasRod = offHandStack.isOf(Items.FISHING_ROD)
+                || offHandStack.isOf(ModItems.BAMBOO_FISHING_ROD)
                 || offHandStack.isOf(ModItems.WOODEN_FISHING_ROD)
                 || offHandStack.isOf(ModItems.METAL_FISHING_ROD)
                 || offHandStack.isOf(ModItems.NETHERITE_FISHING_ROD);

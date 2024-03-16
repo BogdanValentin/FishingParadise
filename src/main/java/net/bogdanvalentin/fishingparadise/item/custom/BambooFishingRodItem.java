@@ -1,10 +1,11 @@
 package net.bogdanvalentin.fishingparadise.item.custom;
 
-import net.bogdanvalentin.fishingparadise.entity.WoodenFishingBobberEntity;
+import net.bogdanvalentin.fishingparadise.entity.BambooFishingBobberEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.FishingRodItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -13,8 +14,8 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-public class WoodenFishingRodItem extends FishingRodItem {
-    public WoodenFishingRodItem(Item.Settings settings) {
+public class BambooFishingRodItem extends FishingRodItem {
+    public BambooFishingRodItem(Settings settings) {
         super(settings);
     }
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -38,7 +39,7 @@ public class WoodenFishingRodItem extends FishingRodItem {
             if (!world.isClient) {
                 i = EnchantmentHelper.getLure(itemStack);
                 int j = EnchantmentHelper.getLuckOfTheSea(itemStack);
-                Entity testEntity = new WoodenFishingBobberEntity(user, world, j, i);
+                Entity testEntity = new BambooFishingBobberEntity(user, world, j, i);
 
                 world.spawnEntity(testEntity);
             }
