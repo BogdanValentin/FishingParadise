@@ -19,7 +19,7 @@ A Minecraft mod that turns your ordinary fishing trips into thrilling adventures
 
 **Netherite Rod**  
   ![Netherite Rod](https://i.imgur.com/NxNaWZs.png)  
-  This rod has a **1/8** chance to cath something. It can catch Legendary Fish and other treasures such as: Nautilus Shells, Heart of the Sea, Angler Pottery Sherd, Prismarine.
+  This rod has a **1/3** chance to catch something. It can catch Legendary Fish and other treasures such as: Nautilus Shells, Heart of the Sea, Angler Pottery Sherd, Prismarine.
 
 ## New Catchable Fish (and their cooked counterpart):
 - Anchoveta ![Anchoveta](https://imgur.com/FhFCM3i.png)
@@ -38,7 +38,7 @@ These fish can be cooked using a **furnace**, **smoker**, or **campfire**, provi
 - Octopus ![Octopus](https://imgur.com/IEexZ8s.png)
 - Serpent ![Serpent](https://imgur.com/kjym2wR.png)
 
-Eating one of these legendary creatures will grant you unique effects such as **Night Vision**, **Strength** or **Speed** respectivly adding excitement to your fishing endeavors.
+Eating one of these legendary creatures will grant you unique effects such as **Night Vision**, **Strength** or **Speed** respectively adding excitement to your fishing endeavors.
 
 ## Mouthwatering Dishes:
 - Fish Fillets ![Fish Fillets](https://imgur.com/af3qSsl.png)

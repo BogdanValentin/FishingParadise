@@ -98,9 +98,9 @@ public class NetheriteFishingBobberEntity extends FishingBobberEntity {
             }
 
             Criteria.FISHING_ROD_HOOKED.trigger((ServerPlayerEntity)playerEntity, usedItem, this, list);
-            // RANDOM NO CATCH, CHANCE 1 IN 8
-            int catchChance = random.nextInt(8);
-            if(catchChance == 3) {
+            // RANDOM NO CATCH, CHANCE 1 IN 3
+            int catchChance = random.nextInt(3);
+            if(catchChance == 1) {
                 for (ItemStack itemStack : list) {
                     ItemEntity itemEntity = new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), itemStack);
                     double d = playerEntity.getX() - this.getX();
