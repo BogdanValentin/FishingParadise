@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "fishingparadise:raw_hering"
+    },
+    {
+      "tag": "minecraft:swords"
     }
   ],
   "result": {

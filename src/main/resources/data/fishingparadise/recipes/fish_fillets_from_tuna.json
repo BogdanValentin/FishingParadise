@@ -4,9 +4,13 @@
   "ingredients": [
     {
       "item": "fishingparadise:raw_tuna"
+    },
+    {
+      "tag": "minecraft:swords"
     }
   ],
   "result": {
-    "item": "fishingparadise:fish_fillets"
+    "item": "fishingparadise:fish_fillets",
+    "count": 2
   }
 }

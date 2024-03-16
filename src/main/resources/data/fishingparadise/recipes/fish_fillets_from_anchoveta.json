@@ -4,6 +4,9 @@
   "ingredients": [
     {
       "item": "fishingparadise:raw_anchoveta"
+    },
+    {
+      "tag": "minecraft:swords"
     }
   ],
   "result": {
