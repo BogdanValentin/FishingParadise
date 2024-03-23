@@ -16,15 +16,12 @@
       "conditions": {
         "items": [
           {
-            "item": "fishingparadise:wooden_fishing_rod"
-          },
-          {
-            "item": "fishingparadise:bamboo_fishing_rod"
+            "items": [
+              "fishingparadise:wooden_fishing_rod",
+              "fishingparadise:bamboo_fishing_rod"
+            ]
           }
-        ],
-        "amount": {
-          "min": 1
-        }
+        ]
       }
     }
   }
