@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "fishingparadise",
-	"version": "${1.0}",
+	"version": "${1.1}",
 	"name": "Fishing Paradise",
 	"description": "Fishing Paradise is all about fishing!",
 	"authors": [
