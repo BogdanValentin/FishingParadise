@@ -14,7 +14,7 @@ A Minecraft mod that turns your ordinary fishing trips into thrilling adventures
   This rod has a **25%** of catching junk and a durability of 64 uses.
 
 **Metal Rod**  
-  ![Metal Rod](https://i.imgur.com/C6ghgpv.png)  
+  ![Metal Rod](https://i.imgur.com/K7dn9Un.png)  
   This rod has a **5%** of catching junk and a durability of 128 uses.
 
 **Netherite Rod**  
