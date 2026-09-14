@@ -2,6 +2,7 @@ package net.bogdanvalentin.fishingparadise;
 
 import net.bogdanvalentin.fishingparadise.item.ModItemGroups;
 import net.bogdanvalentin.fishingparadise.item.ModItems;
+import net.bogdanvalentin.fishingparadise.recipe.ModRecipes;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -15,5 +16,6 @@ public class FishingParadise implements ModInitializer {
 	public void onInitialize() {
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
+		ModRecipes.registerRecipes();
 	}
 }
