@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        { "type": "minecraft:empty", "weight": 200 },
+
+        { "type": "minecraft:item", "name": "fishingparadise:octopus", "weight": 7 },
+        { "type": "minecraft:item", "name": "fishingparadise:serpent", "weight": 7 },
+        { "type": "minecraft:item", "name": "fishingparadise:anglerfish", "weight": 7 },
+
+        { "type": "minecraft:item", "name": "minecraft:nautilus_shell", "weight": 15 },
+        { "type": "minecraft:item", "name": "minecraft:name_tag", "weight": 14 },
+        { "type": "minecraft:item", "name": "minecraft:heart_of_the_sea", "weight": 2 },
+        { "type": "minecraft:item", "name": "minecraft:angler_pottery_sherd", "weight": 8 },
+        { "type": "minecraft:item", "name": "minecraft:prismarine_shard", "weight": 20 },
+        { "type": "minecraft:item", "name": "minecraft:prismarine_crystals", "weight": 20 }
+      ]
+    }
+  ]
+}

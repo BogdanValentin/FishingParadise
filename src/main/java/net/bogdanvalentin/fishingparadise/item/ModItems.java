@@ -1,10 +1,7 @@
 package net.bogdanvalentin.fishingparadise.item;
 
 import net.bogdanvalentin.fishingparadise.FishingParadise;
-import net.bogdanvalentin.fishingparadise.item.custom.BambooFishingRodItem;
-import net.bogdanvalentin.fishingparadise.item.custom.MetalFishingRodItem;
-import net.bogdanvalentin.fishingparadise.item.custom.NetheriteFishingRodItem;
-import net.bogdanvalentin.fishingparadise.item.custom.WoodenFishingRodItem;
+import net.bogdanvalentin.fishingparadise.item.custom.ModFishingRodItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -49,10 +46,10 @@ public class ModItems {
 
     /** FISHING RODS
      maxDamage means max durability **/
-    public static final Item WOODEN_FISHING_ROD = registerItem("wooden_fishing_rod", new WoodenFishingRodItem(new Item.Settings().maxDamage(64)));
-    public static final Item BAMBOO_FISHING_ROD = registerItem("bamboo_fishing_rod", new BambooFishingRodItem(new Item.Settings().maxDamage(64)));
-    public static final Item METAL_FISHING_ROD = registerItem("metal_fishing_rod", new MetalFishingRodItem(new Item.Settings().maxDamage(128)));
-    public static final Item NETHERITE_FISHING_ROD = registerItem("netherite_fishing_rod", new NetheriteFishingRodItem(new Item.Settings().maxDamage(256)));
+    public static final Item WOODEN_FISHING_ROD = registerRod("wooden_fishing_rod", 64);
+    public static final Item BAMBOO_FISHING_ROD = registerRod("bamboo_fishing_rod", 64);
+    public static final Item METAL_FISHING_ROD = registerRod("metal_fishing_rod", 128);
+    public static final Item NETHERITE_FISHING_ROD = registerRod("netherite_fishing_rod", 256);
 
 
     private static void addItemsToFoodItemGroup(FabricItemGroupEntries entries) {
@@ -89,6 +86,11 @@ public class ModItems {
         entries.add(WOODEN_FISHING_ROD);
         entries.add(METAL_FISHING_ROD);
         entries.add(NETHERITE_FISHING_ROD);
+    }
+    /** Each rod casts into data/fishingparadise/loot_tables/gameplay/&lt;name&gt;.json. */
+    private static Item registerRod(String name, int durability) {
+        Identifier lootTableId = new Identifier(FishingParadise.MOD_ID, "gameplay/" + name);
+        return registerItem(name, new ModFishingRodItem(new Item.Settings().maxDamage(durability), lootTableId));
     }
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(FishingParadise.MOD_ID, name), item);

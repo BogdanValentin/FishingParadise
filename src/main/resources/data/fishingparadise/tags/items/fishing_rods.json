@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:fishing_rod",
+    "fishingparadise:bamboo_fishing_rod",
+    "fishingparadise:wooden_fishing_rod",
+    "fishingparadise:metal_fishing_rod",
+    "fishingparadise:netherite_fishing_rod"
+  ]
+}

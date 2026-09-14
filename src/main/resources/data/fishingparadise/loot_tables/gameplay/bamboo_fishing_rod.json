@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        { "type": "minecraft:item", "name": "minecraft:lily_pad", "weight": 50 },
+        { "type": "minecraft:item", "name": "minecraft:leather", "weight": 47 },
+        { "type": "minecraft:item", "name": "minecraft:stick", "weight": 50 },
+        { "type": "minecraft:item", "name": "minecraft:string", "weight": 50 },
+        { "type": "minecraft:item", "name": "minecraft:bone", "weight": 50 },
+        { "type": "minecraft:item", "name": "minecraft:ink_sac", "weight": 2 },
+        { "type": "minecraft:item", "name": "minecraft:glow_ink_sac", "weight": 1 },
+
+        { "type": "minecraft:item", "name": "fishingparadise:raw_tilapia", "weight": 140 },
+        { "type": "minecraft:item", "name": "fishingparadise:raw_carp", "weight": 120 },
+        { "type": "minecraft:item", "name": "fishingparadise:raw_anchoveta", "weight": 140 },
+        { "type": "minecraft:item", "name": "fishingparadise:raw_shrimp", "weight": 30 },
+        { "type": "minecraft:item", "name": "fishingparadise:raw_tuna", "weight": 120 },
+        { "type": "minecraft:item", "name": "fishingparadise:raw_crab", "weight": 50 },
+        { "type": "minecraft:item", "name": "fishingparadise:starfish", "weight": 50 },
+        { "type": "minecraft:item", "name": "fishingparadise:raw_hering", "weight": 100 }
+      ]
+    }
+  ]
+}
