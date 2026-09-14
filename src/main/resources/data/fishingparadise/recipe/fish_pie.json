@@ -2,9 +2,15 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "fishingparadise:cooked_fish_fillets",
-    "minecraft:sugar",
-    "minecraft:egg"
+    {
+      "item": "fishingparadise:cooked_fish_fillets"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:egg"
+    }
   ],
   "result": {
     "id": "fishingparadise:fish_pie"

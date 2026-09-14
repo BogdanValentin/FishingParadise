@@ -2,9 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": "fishingparadise:raw_tuna",
-    "X": "fishingparadise:raw_shrimp",
-    "O": "minecraft:dried_kelp"
+    "#": {
+      "item": "fishingparadise:raw_tuna"
+    },
+    "X": {
+      "item": "fishingparadise:raw_shrimp"
+    },
+    "O": {
+      "item": "minecraft:dried_kelp"
+    }
   },
   "pattern": [
     " # ",

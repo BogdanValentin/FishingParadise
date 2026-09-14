@@ -3,7 +3,9 @@
   "category": "food",
   "cookingtime": 600,
   "experience": 0.35,
-  "ingredient": "fishingparadise:raw_tuna",
+  "ingredient": {
+    "item": "fishingparadise:raw_tuna"
+  },
   "result": {
     "id": "fishingparadise:cooked_tuna"
   }

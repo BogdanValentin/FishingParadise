@@ -3,7 +3,9 @@
   "category": "food",
   "cookingtime": 600,
   "experience": 0.35,
-  "ingredient": "fishingparadise:raw_tilapia",
+  "ingredient": {
+    "item": "fishingparadise:raw_tilapia"
+  },
   "result": {
     "id": "fishingparadise:cooked_tilapia"
   }

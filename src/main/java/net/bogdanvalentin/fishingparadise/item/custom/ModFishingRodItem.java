@@ -7,9 +7,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -29,18 +29,18 @@ public class ModFishingRodItem extends FishingRodItem {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
 
         if (player.fishing != null) {
-            if (!level.isClientSide()) {
+            if (!level.isClientSide) {
                 int damage = player.fishing.retrieve(itemStack);
-                itemStack.hurtAndBreak(damage, player, hand.asEquipmentSlot());
+                itemStack.hurtAndBreak(damage, player, LivingEntity.getSlotForHand(hand));
             }
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
                     SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL,
                     1.0F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
-            itemStack.causeUseVibration(player, GameEvent.ITEM_INTERACT_FINISH);
+            player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
         } else {
             level.playSound(null, player.getX(), player.getY(), player.getZ(),
                     SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL,
@@ -48,14 +48,12 @@ public class ModFishingRodItem extends FishingRodItem {
             if (level instanceof ServerLevel serverLevel) {
                 int lureTicks = (int) (EnchantmentHelper.getFishingTimeReduction(serverLevel, itemStack, player) * 20.0F);
                 int luckBonus = EnchantmentHelper.getFishingLuckBonus(serverLevel, itemStack, player);
-                Projectile.spawnProjectile(
-                        new ModFishingBobberEntity(player, level, luckBonus, lureTicks, this, this.lootTable),
-                        serverLevel, itemStack);
+                level.addFreshEntity(new ModFishingBobberEntity(player, level, luckBonus, lureTicks, this, this.lootTable));
             }
             player.awardStat(Stats.ITEM_USED.get(this));
-            itemStack.causeUseVibration(player, GameEvent.ITEM_INTERACT_START);
+            player.gameEvent(GameEvent.ITEM_INTERACT_START);
         }
 
-        return InteractionResult.SUCCESS;
+        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
     }
 }

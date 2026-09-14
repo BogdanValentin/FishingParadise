@@ -2,8 +2,12 @@
   "type": "fishingparadise:fillet",
   "category": "misc",
   "ingredients": [
-    "fishingparadise:raw_hering",
-    "#minecraft:swords"
+    {
+      "item": "fishingparadise:raw_hering"
+    },
+    {
+      "tag": "minecraft:swords"
+    }
   ],
   "result": {
     "id": "fishingparadise:fish_fillets"

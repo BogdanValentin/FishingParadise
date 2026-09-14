@@ -6,6 +6,9 @@
 		"FishingBobberAccessor",
 		"FishingBobberValidityMixin"
 	],
+	"client": [
+		"FishingBobberRendererMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}

@@ -2,10 +2,18 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "fishingparadise:cooked_fish_fillets",
-    "minecraft:carrot",
-    "minecraft:potato",
-    "minecraft:bowl"
+    {
+      "item": "fishingparadise:cooked_fish_fillets"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "minecraft:potato"
+    },
+    {
+      "item": "minecraft:bowl"
+    }
   ],
   "result": {
     "id": "fishingparadise:fish_stew"

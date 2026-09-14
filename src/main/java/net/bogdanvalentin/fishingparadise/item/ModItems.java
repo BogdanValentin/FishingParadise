@@ -8,13 +8,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Registry;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-import java.util.function.Function;
 
 public class ModItems {
     /** FISH **/
@@ -35,9 +34,9 @@ public class ModItems {
     public static final Item STARFISH = registerItem("starfish", new Item.Properties().food(ModFoodComponents.STARFISH));
 
     /** LEGENDARY FISH **/
-    public static final Item ANGLERFISH = registerItem("anglerfish", new Item.Properties().food(ModFoodComponents.ANGLERFISH, ModFoodComponents.ANGLERFISH_EFFECTS).rarity(Rarity.RARE).stacksTo(16));
-    public static final Item OCTOPUS = registerItem("octopus", new Item.Properties().food(ModFoodComponents.OCTOPUS, ModFoodComponents.OCTOPUS_EFFECTS).rarity(Rarity.RARE).stacksTo(16));
-    public static final Item SERPENT = registerItem("serpent", new Item.Properties().food(ModFoodComponents.SERPENT, ModFoodComponents.SERPENT_EFFECTS).rarity(Rarity.RARE).stacksTo(16));
+    public static final Item ANGLERFISH = registerItem("anglerfish", new Item.Properties().food(ModFoodComponents.ANGLERFISH).rarity(Rarity.RARE).stacksTo(16));
+    public static final Item OCTOPUS = registerItem("octopus", new Item.Properties().food(ModFoodComponents.OCTOPUS).rarity(Rarity.RARE).stacksTo(16));
+    public static final Item SERPENT = registerItem("serpent", new Item.Properties().food(ModFoodComponents.SERPENT).rarity(Rarity.RARE).stacksTo(16));
 
     /** FOODS **/
     public static final Item FISH_FILLETS = registerItem("fish_fillets", new Item.Properties().food(ModFoodComponents.FISH_FILLETS));
@@ -91,26 +90,22 @@ public class ModItems {
         entries.accept(METAL_FISHING_ROD);
         entries.accept(NETHERITE_FISHING_ROD);
     }
-    /** Each rod casts into data/fishingparadise/loot_tables/gameplay/&lt;name&gt;.json. */
     /** Each rod casts into data/fishingparadise/loot_table/gameplay/&lt;name&gt;.json. */
     private static Item registerRod(String name, int durability) {
         ResourceKey<LootTable> lootTable = ResourceKey.create(Registries.LOOT_TABLE, id("gameplay/" + name));
-        return registerItem(name, properties -> new ModFishingRodItem(properties, lootTable),
-                new Item.Properties().durability(durability));
+        return registerItem(name, new ModFishingRodItem(new Item.Properties().durability(durability), lootTable));
     }
 
     private static Item registerItem(String name, Item.Properties properties) {
-        return registerItem(name, Item::new, properties);
+        return registerItem(name, new Item(properties));
     }
 
-    /** Items have needed to carry their own registry key since 1.21.2. */
-    private static Item registerItem(String name, Function<Item.Properties, Item> factory, Item.Properties properties) {
-        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, id(name));
-        return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(properties.setId(key)));
+    private static Item registerItem(String name, Item item) {
+        return Registry.register(BuiltInRegistries.ITEM, id(name), item);
     }
 
-    private static Identifier id(String path) {
-        return Identifier.fromNamespaceAndPath(FishingParadise.MOD_ID, path);
+    private static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(FishingParadise.MOD_ID, path);
     }
     public static void registerModItems() {
         FishingParadise.LOGGER.info("Registering Mod Items for " + FishingParadise.MOD_ID);

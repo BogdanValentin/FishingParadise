@@ -3,18 +3,12 @@ package net.bogdanvalentin.fishingparadise.item;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.component.Consumable;
-import net.minecraft.world.item.component.Consumables;
-import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
-
-import java.util.List;
 
 /**
- * Food values, plus the eating effects for the legendary catches.
+ * Food values, including the eating effects for the legendary catches.
  *
- * Since 1.21.2 a FoodProperties only carries nutrition, saturation and whether
- * it is always edible. Status effects moved out to a Consumable, so the
- * legendary fish need both halves, paired up in ModItems.
+ * On 1.21.1 effects still live on the FoodProperties itself. They move out to
+ * a separate Consumable in 1.21.2, which is why the newer branches differ here.
  */
 public class ModFoodComponents {
     public static final FoodProperties RAW_ANCHOVETA = new FoodProperties.Builder().nutrition(1).saturationModifier(0.1f).build();
@@ -42,28 +36,27 @@ public class ModFoodComponents {
     public static final FoodProperties SUSHI = new FoodProperties.Builder().nutrition(4).saturationModifier(0.4f).build();
 
     /** LEGENDARY FISH. 20 ticks = 1 second. **/
-    public static final FoodProperties ANGLERFISH = new FoodProperties.Builder().nutrition(1).saturationModifier(0.5f).alwaysEdible().build();
-    public static final Consumable ANGLERFISH_EFFECTS = legendary(
-            new MobEffectInstance(MobEffects.NAUSEA, 200, 0),
+    public static final FoodProperties ANGLERFISH = legendary(1, 0.5f,
+            new MobEffectInstance(MobEffects.CONFUSION, 200, 0),
             new MobEffectInstance(MobEffects.BLINDNESS, 100, 0),
             new MobEffectInstance(MobEffects.NIGHT_VISION, 6000, 0));
 
-    public static final FoodProperties OCTOPUS = new FoodProperties.Builder().nutrition(1).saturationModifier(0.5f).alwaysEdible().build();
-    public static final Consumable OCTOPUS_EFFECTS = legendary(
-            new MobEffectInstance(MobEffects.NAUSEA, 200, 0),
+    public static final FoodProperties OCTOPUS = legendary(1, 0.5f,
+            new MobEffectInstance(MobEffects.CONFUSION, 200, 0),
             new MobEffectInstance(MobEffects.DARKNESS, 100, 0),
-            new MobEffectInstance(MobEffects.STRENGTH, 6000, 0));
+            new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 0));
 
-    public static final FoodProperties SERPENT = new FoodProperties.Builder().nutrition(2).saturationModifier(0.3f).alwaysEdible().build();
-    public static final Consumable SERPENT_EFFECTS = legendary(
-            new MobEffectInstance(MobEffects.NAUSEA, 200, 0),
+    public static final FoodProperties SERPENT = legendary(2, 0.3f,
+            new MobEffectInstance(MobEffects.CONFUSION, 200, 0),
             new MobEffectInstance(MobEffects.POISON, 100, 0),
-            new MobEffectInstance(MobEffects.SPEED, 6000, 0));
+            new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 6000, 0));
 
-    /** Eats like normal food and always applies every effect. */
-    private static Consumable legendary(MobEffectInstance... effects) {
-        return Consumables.defaultFood()
-                .onConsume(new ApplyStatusEffectsConsumeEffect(List.of(effects)))
-                .build();
+    /** Always edible and every effect always applies. */
+    private static FoodProperties legendary(int nutrition, float saturation, MobEffectInstance... effects) {
+        FoodProperties.Builder builder = new FoodProperties.Builder().nutrition(nutrition).saturationModifier(saturation);
+        for (MobEffectInstance effect : effects) {
+            builder.effect(effect, 1.0f);
+        }
+        return builder.alwaysEdible().build();
     }
 }

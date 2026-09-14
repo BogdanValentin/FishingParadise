@@ -3,7 +3,9 @@
   "category": "food",
   "cookingtime": 100,
   "experience": 0.35,
-  "ingredient": "fishingparadise:raw_hering",
+  "ingredient": {
+    "item": "fishingparadise:raw_hering"
+  },
   "result": {
     "id": "fishingparadise:cooked_hering"
   }

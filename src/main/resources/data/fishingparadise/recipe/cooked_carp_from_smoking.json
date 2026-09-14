@@ -3,7 +3,9 @@
   "category": "food",
   "cookingtime": 100,
   "experience": 0.35,
-  "ingredient": "fishingparadise:raw_carp",
+  "ingredient": {
+    "item": "fishingparadise:raw_carp"
+  },
   "result": {
     "id": "fishingparadise:cooked_carp"
   }

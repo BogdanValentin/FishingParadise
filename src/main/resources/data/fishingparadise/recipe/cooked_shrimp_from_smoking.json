@@ -3,7 +3,9 @@
   "category": "food",
   "cookingtime": 100,
   "experience": 0.35,
-  "ingredient": "fishingparadise:raw_shrimp",
+  "ingredient": {
+    "item": "fishingparadise:raw_shrimp"
+  },
   "result": {
     "id": "fishingparadise:cooked_shrimp"
   }

@@ -7,11 +7,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 public class ModItemGroups {
     public static final CreativeModeTab FISH_GROUP = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
-            Identifier.fromNamespaceAndPath(FishingParadise.MOD_ID, "fish"),
+            ResourceLocation.fromNamespaceAndPath(FishingParadise.MOD_ID, "fish"),
             FabricItemGroup.builder().title(Component.translatable("itemgroup.fish"))
                     .icon(() -> new ItemStack(ModItems.RAW_SHRIMP)).displayItems((displayContext, entries) -> {
                         entries.accept(ModItems.BAMBOO_FISHING_ROD);

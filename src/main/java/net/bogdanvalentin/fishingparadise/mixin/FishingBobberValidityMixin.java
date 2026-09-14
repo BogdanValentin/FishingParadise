@@ -13,8 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * Vanilla discards a bobber the moment the owner is not holding minecraft:fishing_rod.
- * Widen that to the rod tag so modded rods keep their bobber alive. Mirrors vanilla's
- * own conditions, canInteractWithLevel included.
+ * Widen that to the rod tag so modded rods keep their bobber alive. Mirrors vanilla's own conditions.
  */
 @Mixin(FishingHook.class)
 public abstract class FishingBobberValidityMixin extends Entity {
@@ -28,12 +27,9 @@ public abstract class FishingBobberValidityMixin extends Entity {
             cancellable = true
     )
     private void keepModdedRodsFishing(Player player, CallbackInfoReturnable<Boolean> cir) {
-        if (!player.canInteractWithLevel()) {
-            return;
-        }
         boolean holdingRod = player.getMainHandItem().is(ModTags.FISHING_RODS)
                 || player.getOffhandItem().is(ModTags.FISHING_RODS);
-        if (holdingRod && this.distanceToSqr(player) <= 1024.0) {
+        if (!player.isRemoved() && player.isAlive() && holdingRod && this.distanceToSqr(player) <= 1024.0) {
             cir.setReturnValue(false);
         }
     }
