@@ -1,0 +1,12 @@
+{
+  "type": "fishingparadise:fillet",
+  "category": "misc",
+  "ingredients": [
+    "fishingparadise:raw_tuna",
+    "#minecraft:swords"
+  ],
+  "result": {
+    "id": "fishingparadise:fish_fillets",
+    "count": 2
+  }
+}

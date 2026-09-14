@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "fishingparadise:cooked_fish_fillets",
+    "minecraft:baked_potato"
+  ],
+  "result": {
+    "id": "fishingparadise:fish_and_chips"
+  }
+}

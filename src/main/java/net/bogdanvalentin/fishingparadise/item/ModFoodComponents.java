@@ -1,45 +1,69 @@
 package net.bogdanvalentin.fishingparadise.item;
 
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.FoodComponent;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.Consumables;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 
+import java.util.List;
+
+/**
+ * Food values, plus the eating effects for the legendary catches.
+ *
+ * Since 1.21.2 a FoodProperties only carries nutrition, saturation and whether
+ * it is always edible. Status effects moved out to a Consumable, so the
+ * legendary fish need both halves, paired up in ModItems.
+ */
 public class ModFoodComponents {
-    public static final FoodComponent RAW_ANCHOVETA = new FoodComponent.Builder().hunger(1).saturationModifier(0.1f).meat().build();
-    public static final FoodComponent COOKED_ANCHOVETA = new FoodComponent.Builder().hunger(3).saturationModifier(0.6f).meat().build();
-    public static final FoodComponent RAW_CARP = new FoodComponent.Builder().hunger(2).saturationModifier(0.1f).meat().build();
-    public static final FoodComponent COOKED_CARP = new FoodComponent.Builder().hunger(5).saturationModifier(0.6f).meat().build();
-    public static final FoodComponent RAW_HERING = new FoodComponent.Builder().hunger(2).saturationModifier(0.1f).meat().build();
-    public static final FoodComponent COOKED_HERING = new FoodComponent.Builder().hunger(6).saturationModifier(0.8f).meat().build();
-    public static final FoodComponent RAW_SHRIMP = new FoodComponent.Builder().hunger(1).saturationModifier(0.1f).meat().build();
-    public static final FoodComponent COOKED_SHRIMP = new FoodComponent.Builder().hunger(2).saturationModifier(0.2f).meat().build();
-    public static final FoodComponent RAW_TILAPIA = new FoodComponent.Builder().hunger(2).saturationModifier(0.1f).meat().build();
-    public static final FoodComponent COOKED_TILAPIA = new FoodComponent.Builder().hunger(6).saturationModifier(0.8f).meat().build();
-    public static final FoodComponent RAW_TUNA = new FoodComponent.Builder().hunger(3).saturationModifier(0.1f).meat().build();
-    public static final FoodComponent COOKED_TUNA = new FoodComponent.Builder().hunger(8).saturationModifier(0.8f).meat().build();
+    public static final FoodProperties RAW_ANCHOVETA = new FoodProperties.Builder().nutrition(1).saturationModifier(0.1f).build();
+    public static final FoodProperties COOKED_ANCHOVETA = new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).build();
+    public static final FoodProperties RAW_CARP = new FoodProperties.Builder().nutrition(2).saturationModifier(0.1f).build();
+    public static final FoodProperties COOKED_CARP = new FoodProperties.Builder().nutrition(5).saturationModifier(0.6f).build();
+    public static final FoodProperties RAW_HERING = new FoodProperties.Builder().nutrition(2).saturationModifier(0.1f).build();
+    public static final FoodProperties COOKED_HERING = new FoodProperties.Builder().nutrition(6).saturationModifier(0.8f).build();
+    public static final FoodProperties RAW_SHRIMP = new FoodProperties.Builder().nutrition(1).saturationModifier(0.1f).build();
+    public static final FoodProperties COOKED_SHRIMP = new FoodProperties.Builder().nutrition(2).saturationModifier(0.2f).build();
+    public static final FoodProperties RAW_TILAPIA = new FoodProperties.Builder().nutrition(2).saturationModifier(0.1f).build();
+    public static final FoodProperties COOKED_TILAPIA = new FoodProperties.Builder().nutrition(6).saturationModifier(0.8f).build();
+    public static final FoodProperties RAW_TUNA = new FoodProperties.Builder().nutrition(3).saturationModifier(0.1f).build();
+    public static final FoodProperties COOKED_TUNA = new FoodProperties.Builder().nutrition(8).saturationModifier(0.8f).build();
 
-    public static final FoodComponent RAW_CRAB = new FoodComponent.Builder().hunger(2).saturationModifier(0.1f).build();
-    public static final FoodComponent STARFISH = new FoodComponent.Builder().hunger(1).saturationModifier(0.1f).build();
+    public static final FoodProperties RAW_CRAB = new FoodProperties.Builder().nutrition(2).saturationModifier(0.1f).build();
+    public static final FoodProperties STARFISH = new FoodProperties.Builder().nutrition(1).saturationModifier(0.1f).build();
 
-    // 20 ticks = 1 second
-    public static final FoodComponent FISH_FILLETS = new FoodComponent.Builder().hunger(2).saturationModifier(0.1f).meat().build();
-    public static final FoodComponent COOKED_FISH_FILLETS = new FoodComponent.Builder().hunger(4).saturationModifier(0.6f).meat().build();
-    public static final FoodComponent FISH_AND_CHIPS = new FoodComponent.Builder().hunger(8).saturationModifier(0.8f).build();
-    public static final FoodComponent FISH_PIE = new FoodComponent.Builder().hunger(8).saturationModifier(0.8f).build();
-    public static final FoodComponent FISH_STEW = new FoodComponent.Builder().hunger(10).saturationModifier(0.9f).build();
-    public static final FoodComponent SEA_FOOD = new FoodComponent.Builder().hunger(10).saturationModifier(0.9f).build();
-    public static final FoodComponent SUSHI = new FoodComponent.Builder().hunger(4).saturationModifier(0.4f).build();
+    public static final FoodProperties FISH_FILLETS = new FoodProperties.Builder().nutrition(2).saturationModifier(0.1f).build();
+    public static final FoodProperties COOKED_FISH_FILLETS = new FoodProperties.Builder().nutrition(4).saturationModifier(0.6f).build();
+    public static final FoodProperties FISH_AND_CHIPS = new FoodProperties.Builder().nutrition(8).saturationModifier(0.8f).build();
+    public static final FoodProperties FISH_PIE = new FoodProperties.Builder().nutrition(8).saturationModifier(0.8f).build();
+    public static final FoodProperties FISH_STEW = new FoodProperties.Builder().nutrition(10).saturationModifier(0.9f).build();
+    public static final FoodProperties SEA_FOOD = new FoodProperties.Builder().nutrition(10).saturationModifier(0.9f).build();
+    public static final FoodProperties SUSHI = new FoodProperties.Builder().nutrition(4).saturationModifier(0.4f).build();
 
-    public static final FoodComponent ANGLERFISH = new FoodComponent.Builder().hunger(1).saturationModifier(0.5f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 100), 1f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 6000), 1f).alwaysEdible().build();
-    public static final FoodComponent OCTOPUS = new FoodComponent.Builder().hunger(1).saturationModifier(0.5f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 100), 1f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 6000), 1f).alwaysEdible().build();
-    public static final FoodComponent SERPENT = new FoodComponent.Builder().hunger(2).saturationModifier(0.3f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200), 1f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.POISON, 100), 1f)
-            .statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 6000), 1f).alwaysEdible().build();
+    /** LEGENDARY FISH. 20 ticks = 1 second. **/
+    public static final FoodProperties ANGLERFISH = new FoodProperties.Builder().nutrition(1).saturationModifier(0.5f).alwaysEdible().build();
+    public static final Consumable ANGLERFISH_EFFECTS = legendary(
+            new MobEffectInstance(MobEffects.NAUSEA, 200, 0),
+            new MobEffectInstance(MobEffects.BLINDNESS, 100, 0),
+            new MobEffectInstance(MobEffects.NIGHT_VISION, 6000, 0));
+
+    public static final FoodProperties OCTOPUS = new FoodProperties.Builder().nutrition(1).saturationModifier(0.5f).alwaysEdible().build();
+    public static final Consumable OCTOPUS_EFFECTS = legendary(
+            new MobEffectInstance(MobEffects.NAUSEA, 200, 0),
+            new MobEffectInstance(MobEffects.DARKNESS, 100, 0),
+            new MobEffectInstance(MobEffects.STRENGTH, 6000, 0));
+
+    public static final FoodProperties SERPENT = new FoodProperties.Builder().nutrition(2).saturationModifier(0.3f).alwaysEdible().build();
+    public static final Consumable SERPENT_EFFECTS = legendary(
+            new MobEffectInstance(MobEffects.NAUSEA, 200, 0),
+            new MobEffectInstance(MobEffects.POISON, 100, 0),
+            new MobEffectInstance(MobEffects.SPEED, 6000, 0));
+
+    /** Eats like normal food and always applies every effect. */
+    private static Consumable legendary(MobEffectInstance... effects) {
+        return Consumables.defaultFood()
+                .onConsume(new ApplyStatusEffectsConsumeEffect(List.of(effects)))
+                .build();
+    }
 }

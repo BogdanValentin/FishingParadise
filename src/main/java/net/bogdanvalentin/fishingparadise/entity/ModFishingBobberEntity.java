@@ -1,27 +1,27 @@
 package net.bogdanvalentin.fishingparadise.entity;
 
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.bogdanvalentin.fishingparadise.mixin.FishingBobberAccessor;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.entity.EntityStatuses;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.FishingBobberEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextParameterSet;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FishingHook;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import java.util.Collections;
+import java.util.List;
 
 /**
  * The bobber for every modded rod. What a rod catches lives in its loot table,
@@ -30,23 +30,23 @@ import java.util.Collections;
  * Note this rides on vanilla's EntityType.FISHING_BOBBER, so clients only ever
  * see a plain bobber and nothing needs registering.
  */
-public class ModFishingBobberEntity extends FishingBobberEntity {
+public class ModFishingBobberEntity extends FishingHook {
     private final Item rodItem;
-    private final Identifier lootTableId;
-    private final int luckOfTheSeaLevel;
+    private final ResourceKey<LootTable> lootTable;
+    private final int luckBonus;
 
-    public ModFishingBobberEntity(PlayerEntity thrower, World world, int luckOfTheSeaLevel, int lureLevel,
-                                  Item rodItem, Identifier lootTableId) {
-        super(thrower, world, luckOfTheSeaLevel, lureLevel);
+    public ModFishingBobberEntity(Player thrower, Level level, int luckBonus, int lureTicks,
+                                  Item rodItem, ResourceKey<LootTable> lootTable) {
+        super(thrower, level, luckBonus, lureTicks);
         this.rodItem = rodItem;
-        this.lootTableId = lootTableId;
-        this.luckOfTheSeaLevel = luckOfTheSeaLevel;
+        this.lootTable = lootTable;
+        this.luckBonus = luckBonus;
     }
 
-    private boolean removeIfInvalid(PlayerEntity player) {
-        boolean mainHand = player.getMainHandStack().isOf(this.rodItem);
-        boolean offHand = player.getOffHandStack().isOf(this.rodItem);
-        if (player.isRemoved() || !player.isAlive() || (!mainHand && !offHand) || this.squaredDistanceTo(player) > 1024.0) {
+    private boolean shouldStopFishing(Player player) {
+        boolean mainHand = player.getMainHandItem().is(this.rodItem);
+        boolean offHand = player.getOffhandItem().is(this.rodItem);
+        if (player.isRemoved() || !player.isAlive() || (!mainHand && !offHand) || this.distanceToSqr(player) > 1024.0) {
             this.discard();
             return true;
         }
@@ -54,56 +54,56 @@ public class ModFishingBobberEntity extends FishingBobberEntity {
     }
 
     @Override
-    public int use(ItemStack usedItem) {
-        PlayerEntity playerEntity = this.getPlayerOwner();
-        if (this.getWorld().isClient || playerEntity == null || this.removeIfInvalid(playerEntity)) {
+    public int retrieve(ItemStack usedItem) {
+        Player player = this.getPlayerOwner();
+        if (this.level().isClientSide() || player == null || this.shouldStopFishing(player)) {
             return 0;
         }
 
         int i = 0;
-        if (this.getHookedEntity() != null) {
-            this.pullHookedEntity(this.getHookedEntity());
-            Criteria.FISHING_ROD_HOOKED.trigger((ServerPlayerEntity) playerEntity, usedItem, this, Collections.emptyList());
-            this.getWorld().sendEntityStatus(this, EntityStatuses.PULL_HOOKED_ENTITY);
-            i = this.getHookedEntity() instanceof ItemEntity ? 3 : 5;
-        } else if (((FishingBobberAccessor) this).getHookCountdown() > 0) {
-            ObjectArrayList<ItemStack> loot = this.generateLoot(playerEntity, usedItem);
-            Criteria.FISHING_ROD_HOOKED.trigger((ServerPlayerEntity) playerEntity, usedItem, this, loot);
+        if (this.getHookedIn() != null) {
+            this.pullEntity(this.getHookedIn());
+            CriteriaTriggers.FISHING_ROD_HOOKED.trigger((ServerPlayer) player, usedItem, this, Collections.emptyList());
+            this.level().broadcastEntityEvent(this, EntityEvent.FISHING_ROD_REEL_IN);
+            i = this.getHookedIn() instanceof ItemEntity ? 3 : 5;
+        } else if (((FishingBobberAccessor) this).getNibble() > 0) {
+            List<ItemStack> loot = this.rollLoot(player, usedItem);
+            CriteriaTriggers.FISHING_ROD_HOOKED.trigger((ServerPlayer) player, usedItem, this, loot);
             for (ItemStack itemStack : loot) {
-                this.dropCatch(playerEntity, itemStack);
+                this.dropCatch(player, itemStack);
             }
             i = 1;
         }
 
-        if (this.isOnGround()) {
+        if (this.onGround()) {
             i = 2;
         }
         this.discard();
         return i;
     }
 
-    private ObjectArrayList<ItemStack> generateLoot(PlayerEntity playerEntity, ItemStack usedItem) {
-        LootTable lootTable = this.getWorld().getServer().getLootManager().getLootTable(this.lootTableId);
-        LootContextParameterSet parameters = new LootContextParameterSet.Builder((ServerWorld) this.getWorld())
-                .add(LootContextParameters.ORIGIN, this.getPos())
-                .add(LootContextParameters.TOOL, usedItem)
-                .add(LootContextParameters.THIS_ENTITY, this)
-                .luck((float) this.luckOfTheSeaLevel + playerEntity.getLuck())
-                .build(LootContextTypes.FISHING);
-        return lootTable.generateLoot(parameters);
+    private List<ItemStack> rollLoot(Player player, ItemStack usedItem) {
+        LootParams lootParams = new LootParams.Builder((ServerLevel) this.level())
+                .withParameter(LootContextParams.ORIGIN, this.position())
+                .withParameter(LootContextParams.TOOL, usedItem)
+                .withParameter(LootContextParams.THIS_ENTITY, this)
+                .withLuck(this.luckBonus + player.getLuck())
+                .create(LootContextParamSets.FISHING);
+        LootTable table = this.level().getServer().reloadableRegistries().getLootTable(this.lootTable);
+        return table.getRandomItems(lootParams);
     }
 
-    private void dropCatch(PlayerEntity playerEntity, ItemStack itemStack) {
-        ItemEntity itemEntity = new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), itemStack);
-        double d = playerEntity.getX() - this.getX();
-        double e = playerEntity.getY() - this.getY();
-        double f = playerEntity.getZ() - this.getZ();
-        itemEntity.setVelocity(d * 0.1, e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.08, f * 0.1);
-        this.getWorld().spawnEntity(itemEntity);
-        playerEntity.getWorld().spawnEntity(new ExperienceOrbEntity(playerEntity.getWorld(), playerEntity.getX(),
-                playerEntity.getY() + 0.5, playerEntity.getZ() + 0.5, this.random.nextInt(6) + 1));
-        if (itemStack.isIn(ItemTags.FISHES)) {
-            playerEntity.increaseStat(Stats.FISH_CAUGHT, 1);
+    private void dropCatch(Player player, ItemStack itemStack) {
+        ItemEntity itemEntity = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), itemStack);
+        double d = player.getX() - this.getX();
+        double e = player.getY() - this.getY();
+        double f = player.getZ() - this.getZ();
+        itemEntity.setDeltaMovement(d * 0.1, e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.08, f * 0.1);
+        this.level().addFreshEntity(itemEntity);
+        player.level().addFreshEntity(new ExperienceOrb(player.level(), player.getX(),
+                player.getY() + 0.5, player.getZ() + 0.5, this.random.nextInt(6) + 1));
+        if (itemStack.is(ItemTags.FISHES)) {
+            player.awardStat(Stats.FISH_CAUGHT, 1);
         }
     }
 }

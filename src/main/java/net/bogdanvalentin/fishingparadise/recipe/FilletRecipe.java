@@ -1,17 +1,21 @@
 package net.bogdanvalentin.fishingparadise.recipe;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.inventory.RecipeInputInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapelessRecipe;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
+
+import java.util.List;
 
 /**
  * A shapeless recipe that hands the sword back instead of eating it, one point
@@ -24,22 +28,20 @@ public class FilletRecipe extends ShapelessRecipe {
 
     private final ItemStack output;
 
-    public FilletRecipe(String group, CraftingRecipeCategory category, ItemStack output, DefaultedList<Ingredient> ingredients) {
+    public FilletRecipe(String group, CraftingBookCategory category, ItemStack output, List<Ingredient> ingredients) {
         super(group, category, output, ingredients);
         this.output = output;
     }
 
     @Override
-    public DefaultedList<ItemStack> getRemainder(RecipeInputInventory inventory) {
-        DefaultedList<ItemStack> remainders = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
+    public NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
+        NonNullList<ItemStack> remainders = NonNullList.withSize(input.size(), ItemStack.EMPTY);
 
         for (int slot = 0; slot < remainders.size(); slot++) {
-            ItemStack stack = inventory.getStack(slot);
-            if (stack.isIn(ItemTags.SWORDS)) {
-                remainders.set(slot, wearDown(stack));
-            } else if (stack.getItem().hasRecipeRemainder()) {
-                remainders.set(slot, new ItemStack(stack.getItem().getRecipeRemainder()));
-            }
+            ItemStack stack = input.getItem(slot);
+            remainders.set(slot, stack.is(ItemTags.SWORDS)
+                    ? wearDown(stack)
+                    : stack.getItem().getCraftingRemainder());
         }
 
         return remainders;
@@ -48,64 +50,52 @@ public class FilletRecipe extends ShapelessRecipe {
     /** Returns the sword with the filleting cost applied, or nothing if that broke it. */
     private static ItemStack wearDown(ItemStack sword) {
         ItemStack kept = sword.copyWithCount(1);
-        if (!kept.isDamageable() || DURABILITY_COST == 0) {
+        if (!kept.isDamageableItem() || DURABILITY_COST == 0) {
             return kept;
         }
-        if (kept.getDamage() + DURABILITY_COST >= kept.getMaxDamage()) {
+        if (kept.getDamageValue() + DURABILITY_COST >= kept.getMaxDamage()) {
             return ItemStack.EMPTY;
         }
-        kept.setDamage(kept.getDamage() + DURABILITY_COST);
+        kept.setDamageValue(kept.getDamageValue() + DURABILITY_COST);
         return kept;
     }
 
+    /**
+     * ShapelessRecipe declares this as RecipeSerializer&lt;ShapelessRecipe&gt;, which is
+     * invariant, so the override cannot narrow it to our own type. The cast is safe:
+     * generics are erased here and the serializer really does produce a FilletRecipe,
+     * which is a ShapelessRecipe. Recipe.CODEC dispatches on the returned instance,
+     * so it still finds our codec.
+     */
     @Override
-    public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.FILLET;
+    @SuppressWarnings("unchecked")
+    public RecipeSerializer<ShapelessRecipe> getSerializer() {
+        return (RecipeSerializer<ShapelessRecipe>) (RecipeSerializer<?>) ModRecipes.FILLET;
     }
 
     public static class Serializer implements RecipeSerializer<FilletRecipe> {
-        private static final Codec<FilletRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.STRING.optionalFieldOf("group", "").forGetter(FilletRecipe::getGroup),
-                CraftingRecipeCategory.CODEC.optionalFieldOf("category", CraftingRecipeCategory.MISC).forGetter(FilletRecipe::getCategory),
-                ItemStack.RECIPE_RESULT_CODEC.fieldOf("result").forGetter(recipe -> recipe.output),
-                Ingredient.DISALLOW_EMPTY_CODEC.listOf().fieldOf("ingredients").flatXmap(
-                        list -> {
-                            Ingredient[] ingredients = list.stream().filter(ingredient -> !ingredient.isEmpty()).toArray(Ingredient[]::new);
-                            if (ingredients.length == 0) {
-                                return DataResult.error(() -> "No ingredients for fillet recipe");
-                            }
-                            if (ingredients.length > 9) {
-                                return DataResult.error(() -> "Too many ingredients for fillet recipe");
-                            }
-                            return DataResult.success(DefaultedList.copyOf(Ingredient.EMPTY, ingredients));
-                        },
-                        DataResult::success
-                ).forGetter(FilletRecipe::getIngredients)
+        private static final MapCodec<FilletRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Codec.STRING.optionalFieldOf("group", "").forGetter(FilletRecipe::group),
+                CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(FilletRecipe::category),
+                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.output),
+                Ingredient.CODEC.listOf(1, 9).fieldOf("ingredients").forGetter(recipe -> recipe.placementInfo().ingredients())
         ).apply(instance, FilletRecipe::new));
 
+        public static final StreamCodec<RegistryFriendlyByteBuf, FilletRecipe> STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.STRING_UTF8, FilletRecipe::group,
+                CraftingBookCategory.STREAM_CODEC, FilletRecipe::category,
+                ItemStack.STREAM_CODEC, recipe -> recipe.output,
+                Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), recipe -> recipe.placementInfo().ingredients(),
+                FilletRecipe::new);
+
         @Override
-        public Codec<FilletRecipe> codec() {
+        public MapCodec<FilletRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public FilletRecipe read(PacketByteBuf buf) {
-            String group = buf.readString();
-            CraftingRecipeCategory category = buf.readEnumConstant(CraftingRecipeCategory.class);
-            DefaultedList<Ingredient> ingredients = DefaultedList.ofSize(buf.readVarInt(), Ingredient.EMPTY);
-            ingredients.replaceAll(ignored -> Ingredient.fromPacket(buf));
-            return new FilletRecipe(group, category, buf.readItemStack(), ingredients);
-        }
-
-        @Override
-        public void write(PacketByteBuf buf, FilletRecipe recipe) {
-            buf.writeString(recipe.getGroup());
-            buf.writeEnumConstant(recipe.getCategory());
-            buf.writeVarInt(recipe.getIngredients().size());
-            for (Ingredient ingredient : recipe.getIngredients()) {
-                ingredient.write(buf);
-            }
-            buf.writeItemStack(recipe.output);
+        public StreamCodec<RegistryFriendlyByteBuf, FilletRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

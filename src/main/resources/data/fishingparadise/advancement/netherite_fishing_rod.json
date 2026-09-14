@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "fishingparadise:netherite_fishing_rod"
+    },
+    "title": "Don\u00e2\u20ac\u2122t go fishing for compliments",
+    "description": "Craft a Netherite Fishing Rod",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "fishingparadise:metal_fishing_rod",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishingparadise:netherite_fishing_rod"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

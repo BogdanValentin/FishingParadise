@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "o": "minecraft:iron_nugget",
+    "#": "minecraft:stick",
+    "X": "minecraft:string"
+  },
+  "pattern": [
+    "  #",
+    " #X",
+    "o X"
+  ],
+  "result": {
+    "id": "fishingparadise:wooden_fishing_rod"
+  }
+}

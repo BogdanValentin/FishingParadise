@@ -1,40 +1,39 @@
 package net.bogdanvalentin.fishingparadise.mixin;
 
 import net.bogdanvalentin.fishingparadise.util.ModTags;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.FishingBobberEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.FishingHook;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * Vanilla discards a bobber the moment the owner is not holding minecraft:fishing_rod.
- * Widen that to the rod tag so modded rods keep their bobber alive.
+ * Widen that to the rod tag so modded rods keep their bobber alive. Mirrors vanilla's
+ * own conditions, canInteractWithLevel included.
  */
-@Mixin(FishingBobberEntity.class)
+@Mixin(FishingHook.class)
 public abstract class FishingBobberValidityMixin extends Entity {
-    @Shadow
-    public abstract PlayerEntity getPlayerOwner();
-
-    private FishingBobberValidityMixin(EntityType<?> type, World world) {
-        super(type, world);
+    private FishingBobberValidityMixin(EntityType<?> type, Level level) {
+        super(type, level);
     }
 
     @Inject(
-            method = "removeIfInvalid",
+            method = "shouldStopFishing",
             at = @At("HEAD"),
             cancellable = true
     )
-    private void removeIfInvalid(PlayerEntity playerEntity, CallbackInfoReturnable<Boolean> cir) {
-        boolean holdingRod = playerEntity.getMainHandStack().isIn(ModTags.FISHING_RODS)
-                || playerEntity.getOffHandStack().isIn(ModTags.FISHING_RODS);
-
-        if (!playerEntity.isRemoved() && playerEntity.isAlive() && holdingRod && this.squaredDistanceTo(playerEntity) <= 1024.0D) {
+    private void keepModdedRodsFishing(Player player, CallbackInfoReturnable<Boolean> cir) {
+        if (!player.canInteractWithLevel()) {
+            return;
+        }
+        boolean holdingRod = player.getMainHandItem().is(ModTags.FISHING_RODS)
+                || player.getOffhandItem().is(ModTags.FISHING_RODS);
+        if (holdingRod && this.distanceToSqr(player) <= 1024.0) {
             cir.setReturnValue(false);
         }
     }

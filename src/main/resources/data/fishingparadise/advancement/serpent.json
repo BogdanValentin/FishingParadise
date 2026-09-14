@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "id": "fishingparadise:serpent"
+    },
+    "title": "Snake it \u00e2\u20ac\u2122til you make it",
+    "description": "Catch a Serpent",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "fishingparadise:netherite_fishing_rod",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "fishingparadise:serpent"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

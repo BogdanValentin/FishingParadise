@@ -1,15 +1,15 @@
 package net.bogdanvalentin.fishingparadise.util;
 
 import net.bogdanvalentin.fishingparadise.FishingParadise;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.resources.Identifier;
 
 public final class ModTags {
     /** Everything this mod treats as a fishing rod, vanilla's rod included. */
     public static final TagKey<Item> FISHING_RODS =
-            TagKey.of(RegistryKeys.ITEM, new Identifier(FishingParadise.MOD_ID, "fishing_rods"));
+            TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(FishingParadise.MOD_ID, "fishing_rods"));
 
     private ModTags() {
     }

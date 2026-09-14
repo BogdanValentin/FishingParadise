@@ -1,11 +1,10 @@
 {
 	"required": true,
 	"package": "net.bogdanvalentin.fishingparadise.mixin",
-	"compatibilityLevel": "JAVA_17",
+	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"FishingBobberAccessor",
-		"FishingBobberValidityMixin",
-		"FishingBobberRendererMixin"
+		"FishingBobberValidityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

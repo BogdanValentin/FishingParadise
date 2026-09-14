@@ -1,11 +1,11 @@
 package net.bogdanvalentin.fishingparadise.mixin;
 
-import net.minecraft.entity.projectile.FishingBobberEntity;
+import net.minecraft.world.entity.projectile.FishingHook;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(FishingBobberEntity.class)
+@Mixin(FishingHook.class)
 public interface FishingBobberAccessor {
-    @Accessor
-    int getHookCountdown();
+    @Accessor("nibble")
+    int getNibble();
 }

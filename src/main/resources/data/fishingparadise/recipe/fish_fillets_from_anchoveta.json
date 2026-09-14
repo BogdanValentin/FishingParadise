@@ -1,0 +1,11 @@
+{
+  "type": "fishingparadise:fillet",
+  "category": "misc",
+  "ingredients": [
+    "fishingparadise:raw_anchoveta",
+    "#minecraft:swords"
+  ],
+  "result": {
+    "id": "fishingparadise:fish_fillets"
+  }
+}

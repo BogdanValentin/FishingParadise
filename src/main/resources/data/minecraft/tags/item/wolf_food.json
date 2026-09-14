@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "fishingparadise:raw_anchoveta",
+    "fishingparadise:cooked_anchoveta",
+    "fishingparadise:raw_carp",
+    "fishingparadise:cooked_carp",
+    "fishingparadise:raw_hering",
+    "fishingparadise:cooked_hering",
+    "fishingparadise:raw_shrimp",
+    "fishingparadise:cooked_shrimp",
+    "fishingparadise:raw_tilapia",
+    "fishingparadise:cooked_tilapia",
+    "fishingparadise:raw_tuna",
+    "fishingparadise:cooked_tuna",
+    "fishingparadise:fish_fillets",
+    "fishingparadise:cooked_fish_fillets"
+  ]
+}

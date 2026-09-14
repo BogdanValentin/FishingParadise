@@ -1,56 +1,61 @@
 package net.bogdanvalentin.fishingparadise.item.custom;
 
 import net.bogdanvalentin.fishingparadise.entity.ModFishingBobberEntity;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.FishingRodItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.FishingRodItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootTable;
 
 /**
  * Every modded rod. A rod is its durability plus the loot table it casts into.
  */
 public class ModFishingRodItem extends FishingRodItem {
-    private final Identifier lootTableId;
+    private final ResourceKey<LootTable> lootTable;
 
-    public ModFishingRodItem(Settings settings, Identifier lootTableId) {
-        super(settings);
-        this.lootTableId = lootTableId;
+    public ModFishingRodItem(Properties properties, ResourceKey<LootTable> lootTable) {
+        super(properties);
+        this.lootTable = lootTable;
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack itemStack = user.getStackInHand(hand);
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
 
-        if (user.fishHook != null) {
-            if (!world.isClient) {
-                int damage = user.fishHook.use(itemStack);
-                itemStack.damage(damage, user, (p) -> p.sendToolBreakStatus(hand));
+        if (player.fishing != null) {
+            if (!level.isClientSide()) {
+                int damage = player.fishing.retrieve(itemStack);
+                itemStack.hurtAndBreak(damage, player, hand.asEquipmentSlot());
             }
-            world.playSound(null, user.getX(), user.getY(), user.getZ(),
-                    SoundEvents.ENTITY_FISHING_BOBBER_RETRIEVE, SoundCategory.NEUTRAL,
-                    1.0F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-            user.emitGameEvent(GameEvent.ITEM_INTERACT_FINISH);
+            level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                    SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL,
+                    1.0F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
+            itemStack.causeUseVibration(player, GameEvent.ITEM_INTERACT_FINISH);
         } else {
-            world.playSound(null, user.getX(), user.getY(), user.getZ(),
-                    SoundEvents.ENTITY_FISHING_BOBBER_THROW, SoundCategory.NEUTRAL,
-                    0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-            if (!world.isClient) {
-                int lure = EnchantmentHelper.getLure(itemStack);
-                int luckOfTheSea = EnchantmentHelper.getLuckOfTheSea(itemStack);
-                world.spawnEntity(new ModFishingBobberEntity(user, world, luckOfTheSea, lure, this, this.lootTableId));
+            level.playSound(null, player.getX(), player.getY(), player.getZ(),
+                    SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL,
+                    0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
+            if (level instanceof ServerLevel serverLevel) {
+                int lureTicks = (int) (EnchantmentHelper.getFishingTimeReduction(serverLevel, itemStack, player) * 20.0F);
+                int luckBonus = EnchantmentHelper.getFishingLuckBonus(serverLevel, itemStack, player);
+                Projectile.spawnProjectile(
+                        new ModFishingBobberEntity(player, level, luckBonus, lureTicks, this, this.lootTable),
+                        serverLevel, itemStack);
             }
-            user.incrementStat(Stats.USED.getOrCreateStat(this));
-            user.emitGameEvent(GameEvent.ITEM_INTERACT_START);
+            player.awardStat(Stats.ITEM_USED.get(this));
+            itemStack.causeUseVibration(player, GameEvent.ITEM_INTERACT_START);
         }
 
-        return TypedActionResult.success(itemStack, world.isClient());
+        return InteractionResult.SUCCESS;
     }
 }
