@@ -13,6 +13,8 @@ A Minecraft mod that turns your ordinary fishing trips into thrilling adventures
 Fabric API is required on every version. Each version has its own jar; they are
 not interchangeable.
 
+See [CHANGELOG.md](CHANGELOG.md) for what changed in each release.
+
 ## Overview
 ![Overview](https://i.imgur.com/Uu4sFY0.png)
 
