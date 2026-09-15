@@ -17,9 +17,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-/**
- * Every modded rod. A rod is its durability plus the loot table it casts into.
- */
 public class ModFishingRodItem extends FishingRodItem {
     private final ResourceKey<LootTable> lootTable;
 

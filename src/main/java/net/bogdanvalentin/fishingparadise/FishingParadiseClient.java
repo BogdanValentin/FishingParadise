@@ -9,14 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.Item;
 
-/**
- * Registers the "cast" model property for each rod, so it swaps to its cast
- * model while a line is out.
- *
- * From 1.21.4 this is gone: model selection moved to JSON definitions under
- * assets/fishingparadise/items, which is why the newer branches have no client
- * entrypoint at all.
- */
 public class FishingParadiseClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
@@ -26,7 +18,6 @@ public class FishingParadiseClient implements ClientModInitializer {
         }
     }
 
-    /** Mirrors vanilla's own cast property for minecraft:fishing_rod. */
     private static ClampedItemPropertyFunction castProperty() {
         return (stack, level, entity, seed) -> {
             if (entity == null) {

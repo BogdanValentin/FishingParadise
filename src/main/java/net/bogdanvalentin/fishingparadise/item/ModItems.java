@@ -14,7 +14,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-
 public class ModItems {
     /** FISH **/
     public static final Item RAW_ANCHOVETA = registerItem("raw_anchoveta", new Item.Properties().food(ModFoodComponents.RAW_ANCHOVETA));
@@ -54,7 +53,6 @@ public class ModItems {
     public static final Item METAL_FISHING_ROD = registerRod("metal_fishing_rod", 128);
     public static final Item NETHERITE_FISHING_ROD = registerRod("netherite_fishing_rod", 256);
 
-
     private static void addItemsToFoodItemGroup(FabricItemGroupEntries entries) {
         entries.accept(RAW_ANCHOVETA);
         entries.accept(COOKED_ANCHOVETA);
@@ -90,7 +88,6 @@ public class ModItems {
         entries.accept(METAL_FISHING_ROD);
         entries.accept(NETHERITE_FISHING_ROD);
     }
-    /** Each rod casts into data/fishingparadise/loot_table/gameplay/&lt;name&gt;.json. */
     private static Item registerRod(String name, int durability) {
         ResourceKey<LootTable> lootTable = ResourceKey.create(Registries.LOOT_TABLE, id("gameplay/" + name));
         return registerItem(name, new ModFishingRodItem(new Item.Properties().durability(durability), lootTable));

@@ -8,11 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-/**
- * Vanilla decides which arm the fishing line leaves from by testing the held
- * stack against minecraft:fishing_rod, so a modded rod draws its line from the
- * wrong hand. Widen that test to the rod tag.
- */
 @Mixin(FishingHookRenderer.class)
 public class FishingBobberRendererMixin {
     @ModifyExpressionValue(
