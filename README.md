@@ -1,6 +1,18 @@
 # Fishing Paradise
 A Minecraft mod that turns your ordinary fishing trips into thrilling adventures! With a treasure trove of new marine creatures and delicious surprises, your fishing experience will never be the same. Get ready to explore and reel in some excitement!
 
+## Supported Minecraft versions
+
+| Minecraft | Download | Requires |
+|---|---|---|
+| 26.2 | `fishingparadise-1.2-26.2.jar` | Java 25, Fabric Loader 0.19.5+ |
+| 1.21.11 | `fishingparadise-1.2-1.21.11.jar` | Java 21, Fabric Loader 0.19.5+ |
+| 1.21.1 | `fishingparadise-1.2-1.21.1.jar` | Java 21, Fabric Loader 0.19.5+ |
+| 1.20.4 | `fishingparadise-1.2-1.20.4.jar` | Java 17, Fabric Loader 0.15.7+ |
+
+Fabric API is required on every version. Each version has its own jar; they are
+not interchangeable.
+
 ## Overview
 ![Overview](https://i.imgur.com/Uu4sFY0.png)
 
@@ -19,7 +31,7 @@ A Minecraft mod that turns your ordinary fishing trips into thrilling adventures
 
 **Netherite Rod**  
   ![Netherite Rod](https://i.imgur.com/NxNaWZs.png)  
-  This rod has a **1/3** chance to catch something. It can catch Legendary Fish and other treasures such as: Nautilus Shells, Heart of the Sea, Angler Pottery Sherd, Prismarine.
+  This rod has a **1/3** chance to catch something. It catches no ordinary fish at all, only Legendary Fish and treasure: Nautilus Shells, Name Tags, Heart of the Sea, Angler Pottery Sherds and Prismarine.
 
 ## New Catchable Fish (and their cooked counterpart):
 - Anchoveta ![Anchoveta](https://imgur.com/FhFCM3i.png)
@@ -50,7 +62,7 @@ Eating one of these legendary creatures will grant you unique effects such as **
 - Sushi ![Sushi](https://imgur.com/7JuNqqn.png)
 
 ### Recipes:  
-Any sword will do!  
+Any sword will do, and you get it back afterwards, one point of durability worse for wear.  
 ![Fish Fillets](https://imgur.com/BWFAteK.png)  
 ![Fish and Chips](https://imgur.com/vZ5F4a4.png)  
 ![Fish Pie](https://imgur.com/pKYYTmS.png)  
