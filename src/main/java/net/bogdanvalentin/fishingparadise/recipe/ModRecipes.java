@@ -11,7 +11,6 @@ public class ModRecipes {
     public static final RecipeSerializer<FilletRecipe> FILLET =
             register("fillet", new RecipeSerializer<>(FilletRecipe.MAP_CODEC, FilletRecipe.STREAM_CODEC));
 
-    /** RecipeSerializer became a record in 26.2, so serializers are built rather than implemented. */
     private static <T extends Recipe<?>> RecipeSerializer<T> register(String name, RecipeSerializer<T> serializer) {
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER,
                 Identifier.fromNamespaceAndPath(FishingParadise.MOD_ID, name), serializer);

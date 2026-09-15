@@ -18,13 +18,7 @@ import net.minecraft.world.item.crafting.ShapelessRecipe;
 
 import java.util.List;
 
-/**
- * A shapeless recipe that hands the sword back instead of eating it, one point
- * of durability lighter. Behaves exactly like minecraft:crafting_shapeless
- * otherwise, so the JSON is unchanged apart from the type.
- */
 public class FilletRecipe extends ShapelessRecipe {
-    /** Durability spent per fillet. Set to 0 to make filleting free. */
     private static final int DURABILITY_COST = 1;
 
     private final ItemStackTemplate output;
@@ -68,7 +62,6 @@ public class FilletRecipe extends ShapelessRecipe {
         return remainders;
     }
 
-    /** Returns the sword with the filleting cost applied, or nothing if that broke it. */
     private static ItemStack wearDown(ItemStack sword) {
         ItemStack kept = sword.copyWithCount(1);
         if (!kept.isDamageableItem() || DURABILITY_COST == 0) {
@@ -81,12 +74,6 @@ public class FilletRecipe extends ShapelessRecipe {
         return kept;
     }
 
-    /**
-     * ShapelessRecipe narrows this to RecipeSerializer&lt;ShapelessRecipe&gt;, which is
-     * invariant, so the override cannot return our own type. The cast is safe: generics
-     * are erased here and the serializer really does produce a FilletRecipe, which is a
-     * ShapelessRecipe.
-     */
     @Override
     @SuppressWarnings("unchecked")
     public RecipeSerializer<ShapelessRecipe> getSerializer() {

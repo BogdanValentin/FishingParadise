@@ -9,13 +9,6 @@ import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
 
 import java.util.List;
 
-/**
- * Food values, plus the eating effects for the legendary catches.
- *
- * Since 1.21.2 a FoodProperties only carries nutrition, saturation and whether
- * it is always edible. Status effects moved out to a Consumable, so the
- * legendary fish need both halves, paired up in ModItems.
- */
 public class ModFoodComponents {
     public static final FoodProperties RAW_ANCHOVETA = new FoodProperties.Builder().nutrition(1).saturationModifier(0.1f).build();
     public static final FoodProperties COOKED_ANCHOVETA = new FoodProperties.Builder().nutrition(3).saturationModifier(0.6f).build();
@@ -41,7 +34,7 @@ public class ModFoodComponents {
     public static final FoodProperties SEA_FOOD = new FoodProperties.Builder().nutrition(10).saturationModifier(0.9f).build();
     public static final FoodProperties SUSHI = new FoodProperties.Builder().nutrition(4).saturationModifier(0.4f).build();
 
-    /** LEGENDARY FISH. 20 ticks = 1 second. **/
+    // 20 ticks = 1 second
     public static final FoodProperties ANGLERFISH = new FoodProperties.Builder().nutrition(1).saturationModifier(0.5f).alwaysEdible().build();
     public static final Consumable ANGLERFISH_EFFECTS = legendary(
             new MobEffectInstance(MobEffects.NAUSEA, 200, 0),
@@ -60,7 +53,6 @@ public class ModFoodComponents {
             new MobEffectInstance(MobEffects.POISON, 100, 0),
             new MobEffectInstance(MobEffects.SPEED, 6000, 0));
 
-    /** Eats like normal food and always applies every effect. */
     private static Consumable legendary(MobEffectInstance... effects) {
         return Consumables.defaultFood()
                 .onConsume(new ApplyStatusEffectsConsumeEffect(List.of(effects)))
