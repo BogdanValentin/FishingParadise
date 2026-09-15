@@ -7,7 +7,6 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public final class ModTags {
-    /** Everything this mod treats as a fishing rod, vanilla's rod included. */
     public static final TagKey<Item> FISHING_RODS =
             TagKey.of(RegistryKeys.ITEM, new Identifier(FishingParadise.MOD_ID, "fishing_rods"));
 

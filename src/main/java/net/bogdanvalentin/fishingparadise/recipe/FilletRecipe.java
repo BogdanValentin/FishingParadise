@@ -13,13 +13,7 @@ import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.collection.DefaultedList;
 
-/**
- * A shapeless recipe that hands the sword back instead of eating it, one point
- * of durability lighter. Behaves exactly like minecraft:crafting_shapeless
- * otherwise, so the JSON is unchanged apart from the type.
- */
 public class FilletRecipe extends ShapelessRecipe {
-    /** Durability spent per fillet. Set to 0 to make filleting free. */
     private static final int DURABILITY_COST = 1;
 
     private final ItemStack output;
@@ -45,7 +39,6 @@ public class FilletRecipe extends ShapelessRecipe {
         return remainders;
     }
 
-    /** Returns the sword with the filleting cost applied, or nothing if that broke it. */
     private static ItemStack wearDown(ItemStack sword) {
         ItemStack kept = sword.copyWithCount(1);
         if (!kept.isDamageable() || DURABILITY_COST == 0) {

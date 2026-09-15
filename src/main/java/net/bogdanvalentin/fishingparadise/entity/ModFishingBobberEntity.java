@@ -23,13 +23,6 @@ import net.minecraft.world.World;
 
 import java.util.Collections;
 
-/**
- * The bobber for every modded rod. What a rod catches lives in its loot table,
- * so adding or rebalancing a rod is a JSON change rather than a Java one.
- *
- * Note this rides on vanilla's EntityType.FISHING_BOBBER, so clients only ever
- * see a plain bobber and nothing needs registering.
- */
 public class ModFishingBobberEntity extends FishingBobberEntity {
     private final Item rodItem;
     private final Identifier lootTableId;

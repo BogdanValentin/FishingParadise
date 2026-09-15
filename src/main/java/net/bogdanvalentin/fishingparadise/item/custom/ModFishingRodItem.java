@@ -14,9 +14,6 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-/**
- * Every modded rod. A rod is its durability plus the loot table it casts into.
- */
 public class ModFishingRodItem extends FishingRodItem {
     private final Identifier lootTableId;
 

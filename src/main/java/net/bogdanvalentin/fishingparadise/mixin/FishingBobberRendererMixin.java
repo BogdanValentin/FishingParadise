@@ -8,9 +8,6 @@ import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-/**
- * Vanilla only draws the fishing line when the held stack is minecraft:fishing_rod.
- */
 @Mixin(FishingBobberEntityRenderer.class)
 public class FishingBobberRendererMixin {
     @ModifyExpressionValue(method = "render(Lnet/minecraft/entity/projectile/FishingBobberEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",

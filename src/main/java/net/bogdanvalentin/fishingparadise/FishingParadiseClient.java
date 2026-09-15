@@ -7,7 +7,6 @@ import net.minecraft.item.FishingRodItem;
 import net.minecraft.util.Identifier;
 import net.bogdanvalentin.fishingparadise.item.ModItems;
 
-
 public class FishingParadiseClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {

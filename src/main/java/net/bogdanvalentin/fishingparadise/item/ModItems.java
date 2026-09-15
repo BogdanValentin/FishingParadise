@@ -51,7 +51,6 @@ public class ModItems {
     public static final Item METAL_FISHING_ROD = registerRod("metal_fishing_rod", 128);
     public static final Item NETHERITE_FISHING_ROD = registerRod("netherite_fishing_rod", 256);
 
-
     private static void addItemsToFoodItemGroup(FabricItemGroupEntries entries) {
         entries.add(RAW_ANCHOVETA);
         entries.add(COOKED_ANCHOVETA);
@@ -87,7 +86,6 @@ public class ModItems {
         entries.add(METAL_FISHING_ROD);
         entries.add(NETHERITE_FISHING_ROD);
     }
-    /** Each rod casts into data/fishingparadise/loot_tables/gameplay/&lt;name&gt;.json. */
     private static Item registerRod(String name, int durability) {
         Identifier lootTableId = new Identifier(FishingParadise.MOD_ID, "gameplay/" + name);
         return registerItem(name, new ModFishingRodItem(new Item.Settings().maxDamage(durability), lootTableId));
