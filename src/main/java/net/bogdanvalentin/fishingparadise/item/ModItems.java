@@ -55,7 +55,6 @@ public class ModItems {
     public static final Item METAL_FISHING_ROD = registerRod("metal_fishing_rod", 128);
     public static final Item NETHERITE_FISHING_ROD = registerRod("netherite_fishing_rod", 256);
 
-
     private static void addItemsToFoodItemGroup(FabricItemGroupEntries entries) {
         entries.accept(RAW_ANCHOVETA);
         entries.accept(COOKED_ANCHOVETA);
@@ -91,8 +90,6 @@ public class ModItems {
         entries.accept(METAL_FISHING_ROD);
         entries.accept(NETHERITE_FISHING_ROD);
     }
-    /** Each rod casts into data/fishingparadise/loot_tables/gameplay/&lt;name&gt;.json. */
-    /** Each rod casts into data/fishingparadise/loot_table/gameplay/&lt;name&gt;.json. */
     private static Item registerRod(String name, int durability) {
         ResourceKey<LootTable> lootTable = ResourceKey.create(Registries.LOOT_TABLE, id("gameplay/" + name));
         return registerItem(name, properties -> new ModFishingRodItem(properties, lootTable),
@@ -103,7 +100,6 @@ public class ModItems {
         return registerItem(name, Item::new, properties);
     }
 
-    /** Items have needed to carry their own registry key since 1.21.2. */
     private static Item registerItem(String name, Function<Item.Properties, Item> factory, Item.Properties properties) {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, id(name));
         return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(properties.setId(key)));
