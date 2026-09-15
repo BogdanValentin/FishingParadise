@@ -1,6 +1,5 @@
 package net.bogdanvalentin.fishingparadise.recipe;
 
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
@@ -9,9 +8,11 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 
@@ -26,12 +27,29 @@ public class FilletRecipe extends ShapelessRecipe {
     /** Durability spent per fillet. Set to 0 to make filleting free. */
     private static final int DURABILITY_COST = 1;
 
-    private final ItemStack output;
+    private final ItemStackTemplate output;
+    private final List<Ingredient> inputs;
 
-    public FilletRecipe(String group, CraftingBookCategory category, ItemStack output, List<Ingredient> ingredients) {
-        super(group, category, output, ingredients);
+    public FilletRecipe(Recipe.CommonInfo commonInfo, CraftingRecipe.CraftingBookInfo bookInfo,
+                        ItemStackTemplate output, List<Ingredient> inputs) {
+        super(commonInfo, bookInfo, output, inputs);
         this.output = output;
+        this.inputs = inputs;
     }
+
+    public static final MapCodec<FilletRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Recipe.CommonInfo.MAP_CODEC.forGetter(recipe -> recipe.commonInfo),
+            CraftingRecipe.CraftingBookInfo.MAP_CODEC.forGetter(recipe -> recipe.bookInfo),
+            ItemStackTemplate.CODEC.fieldOf("result").forGetter(recipe -> recipe.output),
+            Ingredient.CODEC.listOf(1, 9).fieldOf("ingredients").forGetter(recipe -> recipe.inputs)
+    ).apply(instance, FilletRecipe::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, FilletRecipe> STREAM_CODEC = StreamCodec.composite(
+            Recipe.CommonInfo.STREAM_CODEC, recipe -> recipe.commonInfo,
+            CraftingRecipe.CraftingBookInfo.STREAM_CODEC, recipe -> recipe.bookInfo,
+            ItemStackTemplate.STREAM_CODEC, recipe -> recipe.output,
+            Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), recipe -> recipe.inputs,
+            FilletRecipe::new);
 
     @Override
     public NonNullList<ItemStack> getRemainingItems(CraftingInput input) {
@@ -39,9 +57,12 @@ public class FilletRecipe extends ShapelessRecipe {
 
         for (int slot = 0; slot < remainders.size(); slot++) {
             ItemStack stack = input.getItem(slot);
-            remainders.set(slot, stack.is(ItemTags.SWORDS)
-                    ? wearDown(stack)
-                    : stack.getItem().getCraftingRemainder());
+            if (stack.is(ItemTags.SWORDS)) {
+                remainders.set(slot, wearDown(stack));
+            } else {
+                ItemStackTemplate remainder = stack.getItem().getCraftingRemainder();
+                remainders.set(slot, remainder != null ? remainder.create() : ItemStack.EMPTY);
+            }
         }
 
         return remainders;
@@ -61,41 +82,14 @@ public class FilletRecipe extends ShapelessRecipe {
     }
 
     /**
-     * ShapelessRecipe declares this as RecipeSerializer&lt;ShapelessRecipe&gt;, which is
-     * invariant, so the override cannot narrow it to our own type. The cast is safe:
-     * generics are erased here and the serializer really does produce a FilletRecipe,
-     * which is a ShapelessRecipe. Recipe.CODEC dispatches on the returned instance,
-     * so it still finds our codec.
+     * ShapelessRecipe narrows this to RecipeSerializer&lt;ShapelessRecipe&gt;, which is
+     * invariant, so the override cannot return our own type. The cast is safe: generics
+     * are erased here and the serializer really does produce a FilletRecipe, which is a
+     * ShapelessRecipe.
      */
     @Override
     @SuppressWarnings("unchecked")
     public RecipeSerializer<ShapelessRecipe> getSerializer() {
         return (RecipeSerializer<ShapelessRecipe>) (RecipeSerializer<?>) ModRecipes.FILLET;
-    }
-
-    public static class Serializer implements RecipeSerializer<FilletRecipe> {
-        private static final MapCodec<FilletRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Codec.STRING.optionalFieldOf("group", "").forGetter(FilletRecipe::group),
-                CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(FilletRecipe::category),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.output),
-                Ingredient.CODEC.listOf(1, 9).fieldOf("ingredients").forGetter(recipe -> recipe.placementInfo().ingredients())
-        ).apply(instance, FilletRecipe::new));
-
-        public static final StreamCodec<RegistryFriendlyByteBuf, FilletRecipe> STREAM_CODEC = StreamCodec.composite(
-                ByteBufCodecs.STRING_UTF8, FilletRecipe::group,
-                CraftingBookCategory.STREAM_CODEC, FilletRecipe::category,
-                ItemStack.STREAM_CODEC, recipe -> recipe.output,
-                Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), recipe -> recipe.placementInfo().ingredients(),
-                FilletRecipe::new);
-
-        @Override
-        public MapCodec<FilletRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, FilletRecipe> streamCodec() {
-            return STREAM_CODEC;
-        }
     }
 }

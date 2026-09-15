@@ -1,7 +1,7 @@
 package net.bogdanvalentin.fishingparadise.entity;
 
 import net.bogdanvalentin.fishingparadise.mixin.FishingBobberAccessor;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
