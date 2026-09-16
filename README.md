@@ -7,7 +7,7 @@ A Minecraft mod that turns your ordinary fishing trips into thrilling adventures
 |---|---|---|
 | 26.2 | `fishingparadise-1.2-26.2.jar` | Java 25, Fabric Loader 0.19.5+ |
 | 1.21.11 | `fishingparadise-1.2-1.21.11.jar` | Java 21, Fabric Loader 0.19.5+ |
-| 1.21.1 | `fishingparadise-1.2-1.21.1.jar` | Java 21, Fabric Loader 0.19.5+ |
+| 1.21, 1.21.1 | `fishingparadise-1.2-1.21.1.jar` | Java 21, Fabric Loader 0.19.5+ |
 | 1.20.4 | `fishingparadise-1.2-1.20.4.jar` | Java 17, Fabric Loader 0.15.7+ |
 
 Fabric API is required on every version. Each version has its own jar; they are
