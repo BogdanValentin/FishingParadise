@@ -41,3 +41,5 @@ replay_*.log
 
 # built jars, rebuildable from any tag
 /dist/
+
+/CLAUDE.md
