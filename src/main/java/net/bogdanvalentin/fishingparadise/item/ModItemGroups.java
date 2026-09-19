@@ -1,7 +1,7 @@
 package net.bogdanvalentin.fishingparadise.item;
 
 import net.bogdanvalentin.fishingparadise.FishingParadise;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -12,7 +12,7 @@ import net.minecraft.resources.Identifier;
 public class ModItemGroups {
     public static final CreativeModeTab FISH_GROUP = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
             Identifier.fromNamespaceAndPath(FishingParadise.MOD_ID, "fish"),
-            FabricItemGroup.builder().title(Component.translatable("itemgroup.fish"))
+            FabricCreativeModeTab.builder().title(Component.translatable("itemgroup.fish"))
                     .icon(() -> new ItemStack(ModItems.RAW_SHRIMP)).displayItems((displayContext, entries) -> {
                         entries.accept(ModItems.BAMBOO_FISHING_ROD);
                         entries.accept(ModItems.WOODEN_FISHING_ROD);

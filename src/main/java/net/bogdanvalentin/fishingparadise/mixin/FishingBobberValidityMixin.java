@@ -11,11 +11,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/**
- * Vanilla discards a bobber the moment the owner is not holding minecraft:fishing_rod.
- * Widen that to the rod tag so modded rods keep their bobber alive. Mirrors vanilla's
- * own conditions, canInteractWithLevel included.
- */
 @Mixin(FishingHook.class)
 public abstract class FishingBobberValidityMixin extends Entity {
     private FishingBobberValidityMixin(EntityType<?> type, Level level) {

@@ -2,8 +2,8 @@ package net.bogdanvalentin.fishingparadise.item;
 
 import net.bogdanvalentin.fishingparadise.FishingParadise;
 import net.bogdanvalentin.fishingparadise.item.custom.ModFishingRodItem;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTabOutput;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -55,8 +55,7 @@ public class ModItems {
     public static final Item METAL_FISHING_ROD = registerRod("metal_fishing_rod", 128);
     public static final Item NETHERITE_FISHING_ROD = registerRod("netherite_fishing_rod", 256);
 
-
-    private static void addItemsToFoodItemGroup(FabricItemGroupEntries entries) {
+    private static void addItemsToFoodItemGroup(FabricCreativeModeTabOutput entries) {
         entries.accept(RAW_ANCHOVETA);
         entries.accept(COOKED_ANCHOVETA);
         entries.accept(RAW_CARP);
@@ -85,14 +84,12 @@ public class ModItems {
         entries.accept(OCTOPUS);
         entries.accept(SERPENT);
     }
-    private static void addItemsToToolsItemGroup(FabricItemGroupEntries entries) {
+    private static void addItemsToToolsItemGroup(FabricCreativeModeTabOutput entries) {
         entries.accept(BAMBOO_FISHING_ROD);
         entries.accept(WOODEN_FISHING_ROD);
         entries.accept(METAL_FISHING_ROD);
         entries.accept(NETHERITE_FISHING_ROD);
     }
-    /** Each rod casts into data/fishingparadise/loot_tables/gameplay/&lt;name&gt;.json. */
-    /** Each rod casts into data/fishingparadise/loot_table/gameplay/&lt;name&gt;.json. */
     private static Item registerRod(String name, int durability) {
         ResourceKey<LootTable> lootTable = ResourceKey.create(Registries.LOOT_TABLE, id("gameplay/" + name));
         return registerItem(name, properties -> new ModFishingRodItem(properties, lootTable),
@@ -103,7 +100,6 @@ public class ModItems {
         return registerItem(name, Item::new, properties);
     }
 
-    /** Items have needed to carry their own registry key since 1.21.2. */
     private static Item registerItem(String name, Function<Item.Properties, Item> factory, Item.Properties properties) {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, id(name));
         return Registry.register(BuiltInRegistries.ITEM, key, factory.apply(properties.setId(key)));
@@ -114,7 +110,7 @@ public class ModItems {
     }
     public static void registerModItems() {
         FishingParadise.LOGGER.info("Registering Mod Items for " + FishingParadise.MOD_ID);
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(ModItems::addItemsToToolsItemGroup);
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(ModItems::addItemsToFoodItemGroup);
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(ModItems::addItemsToToolsItemGroup);
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(ModItems::addItemsToFoodItemGroup);
     }
 }

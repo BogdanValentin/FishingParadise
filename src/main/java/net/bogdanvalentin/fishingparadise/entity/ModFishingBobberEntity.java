@@ -1,7 +1,7 @@
 package net.bogdanvalentin.fishingparadise.entity;
 
 import net.bogdanvalentin.fishingparadise.mixin.FishingBobberAccessor;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,13 +23,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * The bobber for every modded rod. What a rod catches lives in its loot table,
- * so adding or rebalancing a rod is a JSON change rather than a Java one.
- *
- * Note this rides on vanilla's EntityType.FISHING_BOBBER, so clients only ever
- * see a plain bobber and nothing needs registering.
- */
 public class ModFishingBobberEntity extends FishingHook {
     private final Item rodItem;
     private final ResourceKey<LootTable> lootTable;
